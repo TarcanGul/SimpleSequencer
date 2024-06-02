@@ -21,11 +21,15 @@ public:
     //==============================================================================
     void paint (juce::Graphics&) override;
     void resized() override;
-    juce::FlexBox * getLayout();
 
 private:
     //==============================================================================
     // Your private member variables go here...
+    void getLayout();
+    juce::FlexBox box;
+
+    juce::Label label1;
+    juce::Label label2;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };
