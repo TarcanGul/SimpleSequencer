@@ -13,7 +13,6 @@ void MainComponent::getLayout() {
 MainComponent::MainComponent()
 {
     setSize (1000, 1000);
-    setOpaque(true);
 
     label1.setText("Left side", juce::NotificationType::dontSendNotification);
     label1.setBounds(getLocalBounds());
@@ -33,22 +32,7 @@ MainComponent::MainComponent()
     });
 }
 
-//==============================================================================
-void MainComponent::paint (juce::Graphics& g)
-{
-    // Clear background
-    g.fillAll(juce::Colours::white);
-
-    // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
-
-    g.setFont (juce::Font (16.0f));
-    g.setColour (juce::Colours::white);
-
-    box.performLayout(getLocalBounds());
-}
-
 void MainComponent::resized()
 {
-
+    box.performLayout(getLocalBounds());
 }

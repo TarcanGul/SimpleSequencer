@@ -19,7 +19,6 @@ public:
     MainComponent();
 
     //==============================================================================
-    void paint (juce::Graphics&) override;
     void resized() override;
 
 private:
