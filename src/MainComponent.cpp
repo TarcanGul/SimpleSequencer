@@ -18,16 +18,32 @@ MainComponent::MainComponent()
     appSection.flexDirection = juce::FlexBox::Direction::column;
 
     appSection.items = {
-        juce::FlexItem(buttonSection).withFlex(0.2),
-        juce::FlexItem().withFlex(0.8)
+        juce::FlexItem(buttonSection).withFlex(0.1),
+        juce::FlexItem().withFlex(0.9)
     };
+
+    addSoundButton.setButtonText("Add sound");
+    addSoundButton.setColour(addSoundButton.buttonColourId, lookAndFeel.findColour(ColorPalette::Primary));
+    addSoundButton.setColour(addSoundButton.textColourOffId, lookAndFeel.findColour(ColorPalette::Light));
+    addSoundButton.setColour(addSoundButton.textColourOnId, juce::Colours::white);
+    changeTimeSignatureButton.setButtonText("Set time signature");
+    changeTimeSignatureButton.setColour(addSoundButton.buttonColourId, lookAndFeel.findColour(ColorPalette::Primary));
+    changeTimeSignatureButton.setColour(addSoundButton.textColourOffId, lookAndFeel.findColour(ColorPalette::Light));
+    changeTimeSignatureButton.setColour(addSoundButton.textColourOnId, juce::Colours::white);
+    bpmSlider.setSliderStyle(juce::Slider::SliderStyle::IncDecButtons);
+    bpmSlider.setIncDecButtonsMode(juce::Slider::IncDecButtonMode::incDecButtonsDraggable_Vertical);
+    bpmSlider.setColour(bpmSlider.backgroundColourId, lookAndFeel.findColour(ColorPalette::Primary));
+    bpmSlider.setColour(bpmSlider.trackColourId, lookAndFeel.findColour(ColorPalette::Primary));
+    bpmSlider.setRange(80, 250, 0.5);
+    bpmSlider.setHelpText("BPM");
 
     buttonSection.alignContent = juce::FlexBox::AlignContent::center;
     buttonSection.items = { 
-        juce::FlexItem(addSoundButton).withFlex(1.0).withMinWidth(10.0), 
-        juce::FlexItem(changeTimeSignatureButton).withFlex(1.0).withMinWidth(10.0), 
-        juce::FlexItem(bpmSlider).withFlex(1.0).withMinWidth(10.0) 
+        juce::FlexItem(addSoundButton).withFlex(1.0).withMargin(juce::FlexItem::Margin(10)), 
+        juce::FlexItem(changeTimeSignatureButton).withFlex(1.0).withMargin(juce::FlexItem::Margin(10)), 
+        juce::FlexItem(bpmSlider).withFlex(1.0).withMargin(juce::FlexItem::Margin(10)) 
     };
+    buttonSection.justifyContent = juce::FlexBox::JustifyContent::spaceBetween;
 
     addAndMakeVisible(backgroundRectangle, 0);
     addAndMakeVisible(addSoundButton);
