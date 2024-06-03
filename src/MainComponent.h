@@ -24,8 +24,24 @@ public:
 private:
     //==============================================================================
     // Your private member variables go here...
+    const int BACKGROUND_RECT_MARGIN = 5;
     juce::LookAndFeel_V4 lookAndFeel;
     juce::DrawableRectangle backgroundRectangle;
+
+    juce::FlexBox appSection;
+
+    juce::FlexBox buttonSection;
+    juce::TextButton addSoundButton;
+    juce::TextButton changeTimeSignatureButton;
+    juce::Slider bpmSlider;
+
+
+    enum ColorPalette {
+        Background, 
+        Primary, 
+        Secondary,
+        Light
+    };
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };
