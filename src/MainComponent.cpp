@@ -1,38 +1,30 @@
 #include "MainComponent.h"
 
-void MainComponent::getLayout() {
-    box.flexDirection = juce::FlexBox::Direction::row;
-
-    box.items.addArray({
-        juce::FlexItem(label1).withFlex(1.0).withMinWidth(50.0),
-        juce::FlexItem(label2).withFlex(1.0).withMinWidth(50.0)
-    });
-}
-
 //==============================================================================
 MainComponent::MainComponent()
 {
     setSize (1000, 1000);
 
-    label1.setText("Left side", juce::NotificationType::dontSendNotification);
-    label1.setBounds(getLocalBounds());
-    label1.setJustificationType(juce::Justification::centred);
-    addAndMakeVisible(label1);
+    int backgroundWidth = getLocalBounds().reduced(10).getWidth();
+    int backgroundHeight = getLocalBounds().reduced(10).getHeight();
 
-    label2.setText("Changed text.", juce::NotificationType::dontSendNotification);
-    label2.setBounds(getLocalBounds());
-    label2.setJustificationType(juce::Justification::centred);
-    addAndMakeVisible(label2);
+    int x = (getWidth() - static_cast<int>(backgroundWidth)) / 2;
+    int y = (getHeight() - static_cast<int>(backgroundHeight)) / 2;
 
-    box.flexDirection = juce::FlexBox::Direction::row;
+    backgroundRectangle.setFill(juce::Colours::red);
+    backgroundRectangle.setRectangle(juce::Rectangle<float>(x, y, backgroundWidth, backgroundHeight));
+    backgroundRectangle.setCornerSize(juce::Point<float>(10.0f, 10.0f));
 
-    box.items.addArray({
-        juce::FlexItem(label1).withFlex(1.0).withMinWidth(50.0),
-        juce::FlexItem(label2).withFlex(1.0).withMinWidth(50.0)
-    });
+    addAndMakeVisible(backgroundRectangle, 0);
 }
 
 void MainComponent::resized()
 {
-    box.performLayout(getLocalBounds());
+    int backgroundWidth = getLocalBounds().reduced(10).getWidth();
+    int backgroundHeight = getLocalBounds().reduced(10).getHeight();
+
+    int x = (getWidth() - static_cast<int>(backgroundWidth)) / 2;
+    int y = (getHeight() - static_cast<int>(backgroundHeight)) / 2;
+
+    backgroundRectangle.setRectangle(juce::Rectangle<float>(x, y, backgroundWidth, backgroundHeight));
 }

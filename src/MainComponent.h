@@ -24,11 +24,8 @@ public:
 private:
     //==============================================================================
     // Your private member variables go here...
-    void getLayout();
-    juce::FlexBox box;
-
-    juce::Label label1;
-    juce::Label label2;
+    juce::LookAndFeel_V4 lookAndFeel;
+    juce::DrawableRectangle backgroundRectangle;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };
