@@ -13,6 +13,7 @@ target_sources(${CMAKE_PROJECT_NAME}
     PRIVATE
         src/main.cpp 
         src/MainComponent.cpp
+        src/components/Sequencer.cpp
 )
 
 target_compile_definitions(${CMAKE_PROJECT_NAME}

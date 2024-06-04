@@ -26,10 +26,12 @@ MainComponent::MainComponent()
     addSoundButton.setColour(addSoundButton.buttonColourId, lookAndFeel.findColour(ColorPalette::Primary));
     addSoundButton.setColour(addSoundButton.textColourOffId, lookAndFeel.findColour(ColorPalette::Light));
     addSoundButton.setColour(addSoundButton.textColourOnId, juce::Colours::white);
+
     changeTimeSignatureButton.setButtonText("Set time signature");
     changeTimeSignatureButton.setColour(addSoundButton.buttonColourId, lookAndFeel.findColour(ColorPalette::Primary));
     changeTimeSignatureButton.setColour(addSoundButton.textColourOffId, lookAndFeel.findColour(ColorPalette::Light));
     changeTimeSignatureButton.setColour(addSoundButton.textColourOnId, juce::Colours::white);
+    
     bpmSlider.setSliderStyle(juce::Slider::SliderStyle::IncDecButtons);
     bpmSlider.setIncDecButtonsMode(juce::Slider::IncDecButtonMode::incDecButtonsDraggable_Vertical);
     bpmSlider.setColour(bpmSlider.backgroundColourId, lookAndFeel.findColour(ColorPalette::Primary));
