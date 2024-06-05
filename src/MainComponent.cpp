@@ -18,8 +18,8 @@ MainComponent::MainComponent()
     appSection.flexDirection = juce::FlexBox::Direction::column;
 
     appSection.items = {
-        juce::FlexItem(buttonSection).withFlex(0.1),
-        juce::FlexItem().withFlex(0.9)
+        juce::FlexItem(buttonSection).withFlex(0.1f),
+        juce::FlexItem(*sequencer).withFlex(0.9f)
     };
 
     addSoundButton.setButtonText("Add sound");
@@ -51,6 +51,7 @@ MainComponent::MainComponent()
     addAndMakeVisible(addSoundButton);
     addAndMakeVisible(changeTimeSignatureButton);
     addAndMakeVisible(bpmSlider);
+    addAndMakeVisible(sequencer);
 
     appSection.performLayout(backgroundRectangle.getBounds());
     buttonSection.performLayout(appSection.items.getFirst().currentBounds);

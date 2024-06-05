@@ -6,6 +6,7 @@
 // you could `#include <JuceHeader.h>` here instead, to make all your module headers visible.
 #include <juce_gui_extra/juce_gui_extra.h>
 #include <juce_gui_basics/juce_gui_basics.h>
+#include "./components/Sequencer.h"
 
 //==============================================================================
 /*
@@ -35,6 +36,7 @@ private:
     juce::TextButton changeTimeSignatureButton;
     juce::Slider bpmSlider;
 
+    Sequencer * sequencer = new Sequencer();
 
     enum ColorPalette {
         Background, 
