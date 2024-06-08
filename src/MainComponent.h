@@ -32,11 +32,13 @@ private:
     juce::FlexBox appSection;
 
     juce::FlexBox buttonSection;
-    juce::TextButton addSoundButton;
+    juce::TextButton addRowButton;
+    std::unique_ptr<juce::ShapeButton> playButton;
+    std::unique_ptr<juce::ShapeButton> resetButton;
     juce::TextButton changeTimeSignatureButton;
     juce::Slider bpmSlider;
 
-    Sequencer * sequencer = new Sequencer();
+    Sequencer sequencer;
 
     enum ColorPalette {
         Background, 

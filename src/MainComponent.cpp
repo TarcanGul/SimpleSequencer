@@ -19,18 +19,18 @@ MainComponent::MainComponent()
 
     appSection.items = {
         juce::FlexItem(buttonSection).withFlex(0.1f),
-        juce::FlexItem(*sequencer).withFlex(0.9f)
+        juce::FlexItem(sequencer).withFlex(0.9f)
     };
 
-    addSoundButton.setButtonText("Add sound");
-    addSoundButton.setColour(addSoundButton.buttonColourId, lookAndFeel.findColour(ColorPalette::Primary));
-    addSoundButton.setColour(addSoundButton.textColourOffId, lookAndFeel.findColour(ColorPalette::Light));
-    addSoundButton.setColour(addSoundButton.textColourOnId, juce::Colours::white);
+    addRowButton.setButtonText("Add row");
+    addRowButton.setColour(addRowButton.buttonColourId, lookAndFeel.findColour(ColorPalette::Primary));
+    addRowButton.setColour(addRowButton.textColourOffId, lookAndFeel.findColour(ColorPalette::Light));
+    addRowButton.setColour(addRowButton.textColourOnId, juce::Colours::white);
 
     changeTimeSignatureButton.setButtonText("Set time signature");
-    changeTimeSignatureButton.setColour(addSoundButton.buttonColourId, lookAndFeel.findColour(ColorPalette::Primary));
-    changeTimeSignatureButton.setColour(addSoundButton.textColourOffId, lookAndFeel.findColour(ColorPalette::Light));
-    changeTimeSignatureButton.setColour(addSoundButton.textColourOnId, juce::Colours::white);
+    changeTimeSignatureButton.setColour(changeTimeSignatureButton.buttonColourId, lookAndFeel.findColour(ColorPalette::Primary));
+    changeTimeSignatureButton.setColour(changeTimeSignatureButton.textColourOffId, lookAndFeel.findColour(ColorPalette::Light));
+    changeTimeSignatureButton.setColour(changeTimeSignatureButton.textColourOnId, juce::Colours::white);
     
     bpmSlider.setSliderStyle(juce::Slider::SliderStyle::IncDecButtons);
     bpmSlider.setIncDecButtonsMode(juce::Slider::IncDecButtonMode::incDecButtonsDraggable_Vertical);
@@ -39,18 +39,46 @@ MainComponent::MainComponent()
     bpmSlider.setRange(80, 250, 0.5);
     bpmSlider.setHelpText("BPM");
 
+    juce::Path playButtonShape;
+    juce::Path resetButtonShape;
+
+    juce::Path playButtonTop;
+    juce::Path resetButtonTop;
+
+    playButtonShape.addRectangle(0, 0, 100.0, 100.0);
+    playButtonTop.addTriangle(30, 30, 30, 100, 50, 50);
+
+    playButtonShape.addPath(playButtonTop);
+
+    resetButtonShape.addRectangle(0, 0, 100.0, 100.0);
+    resetButtonTop.addRectangle(0, 0, 50.0, 50.0);
+
+    resetButtonShape.addPath(resetButtonTop);
+
+    playButton = std::make_unique<juce::ShapeButton>("playButton", juce::Colours::azure, juce::Colours::black, juce::Colours::blue);
+    playButton->setOutline(juce::Colours::black, 1.0f);
+
+    resetButton = std::make_unique<juce::ShapeButton>("resetButton", lookAndFeel.findColour(ColorPalette::Primary), lookAndFeel.findColour(ColorPalette::Secondary), lookAndFeel.findColour(ColorPalette::Light));
+
+    playButton->setShape(playButtonShape, true, true, false);
+    resetButton->setShape(resetButtonShape, true, true, false);
+
     buttonSection.alignContent = juce::FlexBox::AlignContent::center;
     buttonSection.items = { 
-        juce::FlexItem(addSoundButton).withFlex(1.0).withMargin(juce::FlexItem::Margin(10)), 
+        juce::FlexItem(addRowButton).withFlex(1.0).withMargin(juce::FlexItem::Margin(10)), 
         juce::FlexItem(changeTimeSignatureButton).withFlex(1.0).withMargin(juce::FlexItem::Margin(10)), 
-        juce::FlexItem(bpmSlider).withFlex(1.0).withMargin(juce::FlexItem::Margin(10)) 
+        juce::FlexItem(bpmSlider).withFlex(1.0).withMargin(juce::FlexItem::Margin(10)),
+        juce::FlexItem(*playButton).withFlex(0.5).withMargin(juce::FlexItem::Margin(5)),
+        juce::FlexItem(*resetButton).withFlex(0.5).withMargin(juce::FlexItem::Margin(5))
     };
     buttonSection.justifyContent = juce::FlexBox::JustifyContent::spaceBetween;
 
     addAndMakeVisible(backgroundRectangle, 0);
-    addAndMakeVisible(addSoundButton);
+    addAndMakeVisible(addRowButton);
     addAndMakeVisible(changeTimeSignatureButton);
     addAndMakeVisible(bpmSlider);
+    addAndMakeVisible(playButton.get());
+    addAndMakeVisible(resetButton.get());
     addAndMakeVisible(sequencer);
 
     appSection.performLayout(backgroundRectangle.getBounds());

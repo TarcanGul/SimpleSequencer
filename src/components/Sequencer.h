@@ -3,6 +3,7 @@
 #include <juce_gui_basics/juce_gui_basics.h>
 #include <juce_gui_extra/juce_gui_extra.h>
 #include <vector>
+#include <memory>
 
 class Sequencer : public juce::Component {
 public:
@@ -12,6 +13,7 @@ public:
     void resized() override;
 private:
     std::vector<juce::FlexBox *> soundList;
+    std::vector<juce::TextButton *> allButtons;
     static const int NUM_SOUNDS = 4;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Sequencer)
