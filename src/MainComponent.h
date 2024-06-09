@@ -33,7 +33,7 @@ private:
 
     juce::FlexBox buttonSection;
     juce::TextButton addRowButton;
-    std::unique_ptr<juce::ImageButton> playButton;
+    std::unique_ptr<juce::DrawableButton> playButton;
     std::unique_ptr<juce::ShapeButton> resetButton;
     juce::TextButton changeTimeSignatureButton;
     juce::Slider bpmSlider;

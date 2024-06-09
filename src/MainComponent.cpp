@@ -55,12 +55,12 @@ MainComponent::MainComponent()
 
     resetButtonShape.addPath(resetButtonTop);
 
-    playButton = std::make_unique<juce::ImageButton>("playButton");
-    juce::Image normalImage = juce::ImageFileFormat::loadFrom(juce::File("/Users/tarcangul/projects/simple-sequencer/src/assets/play.png"));
-    juce::Image overImage = juce::ImageFileFormat::loadFrom(juce::File("/Users/tarcangul/projects/simple-sequencer/src/assets/play.png"));
-    juce::Image downImage = juce::ImageFileFormat::loadFrom(juce::File("/Users/tarcangul/projects/simple-sequencer/src/assets/play.png"));
-    playButton->setImages(false, true, false, normalImage, 1.0, lookAndFeel.findColour(ColorPalette::Primary), overImage, 1.0, lookAndFeel.findColour(ColorPalette::Secondary), downImage, 1.0, juce::Colours::transparentBlack );
-
+    playButton = std::make_unique<juce::DrawableButton>("playButton", juce::DrawableButton::ImageOnButtonBackground);
+    playButton->setColour(juce::TextButton::ColourIds::buttonColourId, lookAndFeel.findColour(ColorPalette::Primary));
+    playButton->setColour(juce::TextButton::ColourIds::buttonOnColourId, lookAndFeel.findColour(ColorPalette::Secondary));
+    std::unique_ptr<juce::Drawable> playButtonImage = juce::Drawable::createFromImageFile(juce::File("/Users/tarcangul/projects/simple-sequencer/src/assets/play.png"));
+    playButton->setImages(playButtonImage.get());
+    
     resetButton = std::make_unique<juce::ShapeButton>("resetButton", lookAndFeel.findColour(ColorPalette::Primary), lookAndFeel.findColour(ColorPalette::Secondary), lookAndFeel.findColour(ColorPalette::Light));
 
     resetButton->setShape(resetButtonShape, true, true, false);
