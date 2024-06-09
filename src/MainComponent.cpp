@@ -55,12 +55,14 @@ MainComponent::MainComponent()
 
     resetButtonShape.addPath(resetButtonTop);
 
-    playButton = std::make_unique<juce::ShapeButton>("playButton", juce::Colours::azure, juce::Colours::black, juce::Colours::blue);
-    playButton->setOutline(juce::Colours::black, 1.0f);
+    playButton = std::make_unique<juce::ImageButton>("playButton");
+    juce::Image normalImage = juce::ImageFileFormat::loadFrom(juce::File("/Users/tarcangul/projects/simple-sequencer/src/assets/play.png"));
+    juce::Image overImage = juce::ImageFileFormat::loadFrom(juce::File("/Users/tarcangul/projects/simple-sequencer/src/assets/play.png"));
+    juce::Image downImage = juce::ImageFileFormat::loadFrom(juce::File("/Users/tarcangul/projects/simple-sequencer/src/assets/play.png"));
+    playButton->setImages(false, true, false, normalImage, 1.0, lookAndFeel.findColour(ColorPalette::Primary), overImage, 1.0, lookAndFeel.findColour(ColorPalette::Secondary), downImage, 1.0, juce::Colours::transparentBlack );
 
     resetButton = std::make_unique<juce::ShapeButton>("resetButton", lookAndFeel.findColour(ColorPalette::Primary), lookAndFeel.findColour(ColorPalette::Secondary), lookAndFeel.findColour(ColorPalette::Light));
 
-    playButton->setShape(playButtonShape, true, true, false);
     resetButton->setShape(resetButtonShape, true, true, false);
 
     buttonSection.alignContent = juce::FlexBox::AlignContent::center;

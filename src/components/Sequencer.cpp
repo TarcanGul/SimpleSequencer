@@ -1,14 +1,8 @@
 #include "Sequencer.h"
 
 Sequencer::Sequencer() {
-    // The sound list have to be dynamically created.
-
-    const int NUM_BEATS  = 8;
-
     int startingX = getX();
     int startingY = getY();
-
-    int lineHeight = 50;
 
     int currentX = startingX;
     int currentY = startingY;
@@ -35,8 +29,8 @@ Sequencer::Sequencer() {
             addAndMakeVisible(button);
             soundLine->items.add(juce::FlexItem(* button).withFlex(1.0).withMargin(4.0).withMinWidth(10.0));
         }
-        soundLine->performLayout(juce::Rectangle<int>(currentX, currentY, getWidth() - 20, lineHeight));
-        currentY += lineHeight + 20;
+        soundLine->performLayout(juce::Rectangle<int>(currentX, currentY, getWidth() - LINE_SIDE_MARGIN, LINE_HEIGHT));
+        currentY += LINE_HEIGHT + LINE_VERTICAL_GAP;
     }
 }
 
