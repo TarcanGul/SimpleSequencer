@@ -39,31 +39,20 @@ MainComponent::MainComponent()
     bpmSlider.setRange(80, 250, 0.5);
     bpmSlider.setHelpText("BPM");
 
-    juce::Path playButtonShape;
-    juce::Path resetButtonShape;
-
-    juce::Path playButtonTop;
-    juce::Path resetButtonTop;
-
-    playButtonShape.addRectangle(0, 0, 100.0, 100.0);
-    playButtonTop.addTriangle(30, 30, 30, 100, 50, 50);
-
-    playButtonShape.addPath(playButtonTop);
-
-    resetButtonShape.addRectangle(0, 0, 100.0, 100.0);
-    resetButtonTop.addRectangle(0, 0, 50.0, 50.0);
-
-    resetButtonShape.addPath(resetButtonTop);
+    std::unique_ptr<juce::Drawable> playIcon = juce::Drawable::createFromImageFile(juce::File("/Users/tarcangul/projects/simple-sequencer/src/assets/play.png"));
+    std::unique_ptr<juce::Drawable> pauseIcon = juce::Drawable::createFromImageFile(juce::File("/Users/tarcangul/projects/simple-sequencer/src/assets/pause.png"));
+    std::unique_ptr<juce::Drawable> stopIcon = juce::Drawable::createFromImageFile(juce::File("/Users/tarcangul/projects/simple-sequencer/src/assets/stop.png"));
 
     playButton = std::make_unique<juce::DrawableButton>("playButton", juce::DrawableButton::ImageOnButtonBackground);
+    playButton->setToggleable(true);
     playButton->setColour(juce::TextButton::ColourIds::buttonColourId, lookAndFeel.findColour(ColorPalette::Primary));
     playButton->setColour(juce::TextButton::ColourIds::buttonOnColourId, lookAndFeel.findColour(ColorPalette::Secondary));
-    std::unique_ptr<juce::Drawable> playButtonImage = juce::Drawable::createFromImageFile(juce::File("/Users/tarcangul/projects/simple-sequencer/src/assets/play.png"));
-    playButton->setImages(playButtonImage.get());
+    playButton->setImages(playIcon.get(), nullptr, nullptr, nullptr, pauseIcon.get(), nullptr, nullptr, nullptr);
+    playButton->addListener(this);
     
-    resetButton = std::make_unique<juce::ShapeButton>("resetButton", lookAndFeel.findColour(ColorPalette::Primary), lookAndFeel.findColour(ColorPalette::Secondary), lookAndFeel.findColour(ColorPalette::Light));
-
-    resetButton->setShape(resetButtonShape, true, true, false);
+    resetButton = std::make_unique<juce::DrawableButton>("resetButton", juce::DrawableButton::ImageOnButtonBackground);
+    resetButton->setImages(stopIcon.get());
+    resetButton->setColour(juce::TextButton::ColourIds::buttonColourId, lookAndFeel.findColour(ColorPalette::Primary));
 
     buttonSection.alignContent = juce::FlexBox::AlignContent::center;
     buttonSection.items = { 
@@ -97,4 +86,12 @@ void MainComponent::resized()
 
     appSection.performLayout(backgroundRectangle.getBounds());
     buttonSection.performLayout(appSection.items.getFirst().currentBounds);
+}
+
+void MainComponent::buttonClicked(juce::Button *button)
+{
+    if(button == playButton.get()) {
+        bool toggle = playButton -> getToggleState();
+        playButton -> setToggleState(!toggle, juce::NotificationType::dontSendNotification);
+    }
 }

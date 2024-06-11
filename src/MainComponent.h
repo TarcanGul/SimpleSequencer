@@ -13,7 +13,8 @@
     This component lives inside our window, and this is where you should put all
     your controls and content.
 */
-class MainComponent final : public juce::Component
+class MainComponent final : public juce::Component,
+                            public juce::Button::Listener
 {
 public:
     //==============================================================================
@@ -21,6 +22,9 @@ public:
 
     //==============================================================================
     void resized() override;
+
+    void buttonClicked(juce::Button * button) override;
+
 
 private:
     //==============================================================================
@@ -34,7 +38,7 @@ private:
     juce::FlexBox buttonSection;
     juce::TextButton addRowButton;
     std::unique_ptr<juce::DrawableButton> playButton;
-    std::unique_ptr<juce::ShapeButton> resetButton;
+    std::unique_ptr<juce::DrawableButton> resetButton;
     juce::TextButton changeTimeSignatureButton;
     juce::Slider bpmSlider;
 
