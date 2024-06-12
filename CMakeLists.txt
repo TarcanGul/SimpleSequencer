@@ -14,6 +14,7 @@ target_sources(${CMAKE_PROJECT_NAME}
         src/main.cpp 
         src/MainComponent.cpp
         src/components/Sequencer.cpp
+        src/components/SoundLine.cpp
 )
 
 target_compile_definitions(${CMAKE_PROJECT_NAME}
