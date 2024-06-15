@@ -13,8 +13,11 @@ target_sources(${CMAKE_PROJECT_NAME}
     PRIVATE
         src/main.cpp 
         src/MainComponent.cpp
+
         src/components/Sequencer.cpp
         src/components/SoundLine.cpp
+
+        src/engine/SoundEngine.cpp
 )
 
 target_compile_definitions(${CMAKE_PROJECT_NAME}
@@ -29,6 +32,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     PRIVATE 
         juce::juce_gui_basics
         juce::juce_gui_extra
+        juce::juce_audio_basics
     PUBLIC
         juce::juce_recommended_config_flags
         juce::juce_recommended_lto_flags

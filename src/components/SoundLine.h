@@ -18,6 +18,9 @@ private:
     juce::FlexBox container;
     juce::TextButton labelButton;
     std::vector<juce::Button *> beatButtons;
+    std::unique_ptr<juce::FileChooser> fileChooser;
+
+    juce::File audioFile;
     std::vector<int> currentSequence;
 
     static const int NUM_BEATS = 8;

@@ -93,5 +93,7 @@ void MainComponent::buttonClicked(juce::Button *button)
     if(button == playButton.get()) {
         bool toggle = playButton -> getToggleState();
         playButton -> setToggleState(!toggle, juce::NotificationType::dontSendNotification);
+        // Should get everything from sequencer and be able to play it.
+        auto allSounds = sequencer.getSounds();
     }
 }

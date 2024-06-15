@@ -3,6 +3,12 @@
 SoundLine::SoundLine() {
     container.alignContent = juce::FlexBox::AlignContent::center;
 
+    fileChooser = std::make_unique<juce::FileChooser>(
+        "Please select the sound file you want to load.",
+        juce::File(),
+        "*.wav,*.aiff"
+    );
+
     labelButton.setButtonText("<no sound>");
 
     // Setup sequencer state
@@ -54,7 +60,13 @@ int SoundLine::findIndex(std::vector<juce::Button *> buttons, juce::Button *inpu
 void SoundLine::buttonClicked(juce::Button *button)
 {
     if(button == &labelButton) {
-        std::cout << "Label button clicked" << std::endl;
+        int fileChooserFlags = juce::FileBrowserComponent::openMode | juce::FileBrowserComponent::canSelectFiles;
+        fileChooser->launchAsync(fileChooserFlags, [this] (const juce::FileChooser& chooser) {
+            juce::File selectedFile (chooser.getResult());
+            audioFile = selectedFile;
+            labelButton.setButtonText(selectedFile.getFileName());
+        });
+        return;
     }
     
     int beatButtonIndex = findIndex(beatButtons, button);

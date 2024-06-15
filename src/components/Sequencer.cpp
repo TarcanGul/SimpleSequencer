@@ -27,3 +27,8 @@ void Sequencer::resized() {
         currentY += LINE_HEIGHT + LINE_VERTICAL_GAP;
     }
 }
+
+std::vector<SoundLine *> Sequencer::getSounds()
+{
+    return soundList;
+}
