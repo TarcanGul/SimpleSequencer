@@ -5,16 +5,23 @@ SoundLine::SoundLine() {
 
     labelButton.setButtonText("<no sound>");
 
+    // Setup sequencer state
+    for(int i = 0; i < NUM_BEATS; i++) {
+        currentSequence.push_back(0);
+    }
+
     container.items.addArray({
         juce::FlexItem(labelButton).withFlex(3.0).withMargin(1.0).withMinWidth(20.0),
         juce::FlexItem().withFlex(0.5), // gap
     });
 
+    labelButton.addListener(this);
     addAndMakeVisible(labelButton);
 
     for(int i = 0; i < NUM_BEATS; i++) {
-        juce::TextButton * button = new juce::TextButton();
+        juce::Button * button = new juce::ToggleButton();
         beatButtons.push_back(button);
+        button->addListener(this);
         addAndMakeVisible(button);
         container.items.add(juce::FlexItem(* button).withFlex(1.0).withMargin(4.0).withMinWidth(10.0));
     }
@@ -32,3 +39,38 @@ SoundLine::~SoundLine()
 void SoundLine::resized() {
     container.performLayout(getLocalBounds());
 }
+
+int SoundLine::findIndex(std::vector<juce::Button *> buttons, juce::Button *inputButton)
+{
+    for(int i = 0; i < buttons.size(); i++) {
+        if(buttons.at(i) == inputButton) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+void SoundLine::buttonClicked(juce::Button *button)
+{
+    if(button == &labelButton) {
+        std::cout << "Label button clicked" << std::endl;
+    }
+    
+    int beatButtonIndex = findIndex(beatButtons, button);
+
+    if(beatButtonIndex != -1) {
+        currentSequence[beatButtonIndex] = button->getToggleState();
+        printSequence(currentSequence);
+    }
+}
+
+void SoundLine::printSequence(std::vector<int> sequence) {
+    std::cout << "Sequence is ";
+    for(int i = 0; i < sequence.size(); i++) {
+        std::cout << sequence[i];
+    }
+
+    std::cout << std::endl;
+}
+

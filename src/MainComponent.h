@@ -23,8 +23,6 @@ public:
     //==============================================================================
     void resized() override;
 
-    void buttonClicked(juce::Button * button) override;
-
 
 private:
     //==============================================================================
@@ -50,6 +48,8 @@ private:
         Secondary,
         Light
     };
+
+    void buttonClicked(juce::Button * button) override;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };
