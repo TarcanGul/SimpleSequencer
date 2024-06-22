@@ -19,4 +19,6 @@ private:
     juce::AudioSourcePlayer audioSourcePlayer;
     juce::AudioDeviceManager deviceManager;
 
+    static const int SAMPLE_BLOCK_SIZE = 128;
+
 };
