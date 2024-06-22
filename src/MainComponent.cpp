@@ -91,9 +91,16 @@ void MainComponent::resized()
 void MainComponent::buttonClicked(juce::Button *button)
 {
     if(button == playButton.get()) {
-        bool toggle = playButton -> getToggleState();
-        playButton -> setToggleState(!toggle, juce::NotificationType::dontSendNotification);
-        // Should get everything from sequencer and be able to play it.
-        auto allSounds = sequencer.getSounds();
+        bool isPlaying = playButton -> getToggleState();
+        if(!isPlaying) {
+            // Should get everything from sequencer and be able to play it.
+            auto allSounds = sequencer.getSounds();
+            soundEngine.playAll(allSounds);
+        }
+        else {
+            soundEngine.pauseAll();
+        }
+
+        playButton -> setToggleState(!isPlaying, juce::NotificationType::dontSendNotification);
     }
 }

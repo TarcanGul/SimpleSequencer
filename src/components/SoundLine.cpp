@@ -42,6 +42,11 @@ SoundLine::~SoundLine()
     }
 }
 
+juce::File SoundLine::getCurrentFile()
+{
+    return audioFile;
+}
+
 void SoundLine::resized() {
     container.performLayout(getLocalBounds());
 }

@@ -7,6 +7,7 @@
 #include <juce_gui_extra/juce_gui_extra.h>
 #include <juce_gui_basics/juce_gui_basics.h>
 #include "./components/Sequencer.h"
+#include "./engine/SoundEngine.h"
 
 //==============================================================================
 /*
@@ -41,6 +42,7 @@ private:
     juce::Slider bpmSlider;
 
     Sequencer sequencer;
+    SoundEngine soundEngine;
 
     enum ColorPalette {
         Background, 

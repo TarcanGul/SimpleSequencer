@@ -3,7 +3,6 @@
 #include <juce_gui_basics/juce_gui_basics.h>
 #include <juce_gui_extra/juce_gui_extra.h>
 #include <vector>
-#include <unordered_set>
 
 class SoundLine : public juce::Component, 
                   public juce::Button::Listener
@@ -11,6 +10,8 @@ class SoundLine : public juce::Component,
 public:
     SoundLine();
     ~SoundLine() override;
+
+    juce::File getCurrentFile();
 
     void resized() override;
 
