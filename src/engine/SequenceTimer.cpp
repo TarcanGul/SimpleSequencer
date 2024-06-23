@@ -18,7 +18,7 @@ void SequenceTimer::hiResTimerCallback()
 
 void SequenceTimer::start()
 {
-    double timerInterval = 60000.0 / (this->bpm);
+    double timerInterval = 60000.0 / (this->bpm) / 4;
     startTimer(timerInterval);
 }
 

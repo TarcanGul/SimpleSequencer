@@ -42,6 +42,7 @@ void SoundEngine::pauseAll()
         audioPlaySource.setPosition(0.0);
         audioPlaySource.setSource(nullptr);
         timer.stop();
+        beatCounter = 0;
     }
 }
 
