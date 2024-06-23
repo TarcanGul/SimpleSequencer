@@ -2,6 +2,7 @@
 
 #include <juce_gui_basics/juce_gui_basics.h>
 #include <juce_gui_extra/juce_gui_extra.h>
+#include <juce_audio_formats/juce_audio_formats.h>
 #include <vector>
 
 class SoundLine : public juce::Component, 

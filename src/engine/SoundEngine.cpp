@@ -26,7 +26,6 @@ void SoundEngine::playAll(std::vector<SoundLine *> sounds)
     readerSource = std::make_unique<juce::AudioFormatReaderSource>(reader, true);
     audioPlaySource.setSource(readerSource.get(), 0, nullptr, reader->sampleRate);
     audioPlaySource.prepareToPlay(SAMPLE_BLOCK_SIZE, reader->sampleRate);
-
     audioPlaySource.start();
 }
 
@@ -35,6 +34,7 @@ void SoundEngine::pauseAll()
     if(audioPlaySource.isPlaying()) {
         audioPlaySource.stop();
         audioPlaySource.setPosition(0.0);
+        audioPlaySource.setSource(nullptr);
     }
 }
 
