@@ -18,6 +18,7 @@ target_sources(${CMAKE_PROJECT_NAME}
         src/components/SoundLine.cpp
 
         src/engine/SoundEngine.cpp
+        src/engine/SequenceTimer.cpp
 )
 
 target_compile_definitions(${CMAKE_PROJECT_NAME}
@@ -30,6 +31,7 @@ target_compile_definitions(${CMAKE_PROJECT_NAME}
 
 target_link_libraries(${CMAKE_PROJECT_NAME}
     PRIVATE 
+        juce::juce_core
         juce::juce_gui_basics
         juce::juce_gui_extra
         juce::juce_audio_basics

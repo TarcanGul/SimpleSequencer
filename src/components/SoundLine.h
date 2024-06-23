@@ -13,6 +13,7 @@ public:
     ~SoundLine() override;
 
     juce::File getCurrentFile();
+    std::vector<int> getCurrentSequence();
 
     void resized() override;
 

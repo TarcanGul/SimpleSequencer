@@ -47,6 +47,11 @@ juce::File SoundLine::getCurrentFile()
     return audioFile;
 }
 
+std::vector<int> SoundLine::getCurrentSequence()
+{
+    return currentSequence;
+}
+
 void SoundLine::resized() {
     container.performLayout(getLocalBounds());
 }
