@@ -23,15 +23,18 @@ void SoundEngine::playAll(std::vector<SoundLine *> sounds)
     std::cout << "File about to played is " << lineFile.getFileName() << std::endl;
 
     juce::AudioFormatReader * reader = audioFormatManager.createReaderFor (lineFile);
-    readerSource = std::make_unique<juce::AudioFormatReaderSource>(reader, true);
-    audioPlaySource.setSource(readerSource.get(), 0, nullptr, reader->sampleRate);
-    audioPlaySource.prepareToPlay(SAMPLE_BLOCK_SIZE, reader->sampleRate);
-    audioPlaySource.start();
+    if(reader != nullptr) {
+        readerSource.reset(new juce::AudioFormatReaderSource(reader, true));
+        readerSource->setLooping(true);
+        audioPlaySource.setSource(readerSource.get(), 0, nullptr, reader->sampleRate);
+        audioPlaySource.prepareToPlay(SAMPLE_BLOCK_SIZE, reader->sampleRate);
+        audioPlaySource.start();
+    }
 }
 
 void SoundEngine::pauseAll()
 {
-    if(audioPlaySource.isPlaying()) {
+    if(audioPlaySource.isPlaying() || audioPlaySource.hasStreamFinished()) {
         audioPlaySource.stop();
         audioPlaySource.setPosition(0.0);
         audioPlaySource.setSource(nullptr);
