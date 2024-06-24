@@ -42,9 +42,14 @@ SoundLine::~SoundLine()
     }
 }
 
-juce::File SoundLine::getCurrentFile()
+juce::File * SoundLine::getCurrentFile()
 {
-    return audioFile;
+    if(hasFile) {
+        return &audioFile;
+    }
+    else {
+        return nullptr;
+    }
 }
 
 std::vector<int> SoundLine::getCurrentSequence()
@@ -74,6 +79,7 @@ void SoundLine::buttonClicked(juce::Button *button)
         fileChooser->launchAsync(fileChooserFlags, [this] (const juce::FileChooser& chooser) {
             juce::File selectedFile (chooser.getResult());
             audioFile = selectedFile;
+            this->hasFile = true;
             labelButton.setButtonText(selectedFile.getFileName());
         });
         return;
@@ -83,7 +89,6 @@ void SoundLine::buttonClicked(juce::Button *button)
 
     if(beatButtonIndex != -1) {
         currentSequence[beatButtonIndex] = button->getToggleState();
-        printSequence(currentSequence);
     }
 }
 

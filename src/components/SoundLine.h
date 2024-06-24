@@ -12,7 +12,7 @@ public:
     SoundLine();
     ~SoundLine() override;
 
-    juce::File getCurrentFile();
+    juce::File * getCurrentFile();
     std::vector<int> getCurrentSequence();
 
     void resized() override;
@@ -25,6 +25,8 @@ private:
 
     juce::File audioFile;
     std::vector<int> currentSequence;
+
+    bool hasFile = false;
 
     static const int NUM_BEATS = 8;
     static const int LINE_VERTICAL_GAP = 20;
