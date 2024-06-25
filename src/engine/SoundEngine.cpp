@@ -51,19 +51,6 @@ void SoundEngine::playAll(std::vector<SoundLine *> sounds)
     }
     mixerAudioSource.prepareToPlay(SAMPLE_BLOCK_SIZE, sampleRate);
     timer.start();
-
-    // SoundLine * firstSound = sounds[0];
-    // juce::File lineFile = firstSound->getCurrentFile();
-    // this->currentSoundSequence = firstSound->getCurrentSequence();
-
-    // juce::AudioFormatReader * reader = audioFormatManager.createReaderFor (lineFile);
-    // if(reader != nullptr) {
-    //     readerSource.reset(new juce::AudioFormatReaderSource(reader, true));
-    //     // In here, we have the timer start, the callback would be the start and maybe the sequence.
-    //     audioPlaySource.setSource(readerSource.get(), 0, nullptr, reader->sampleRate);
-    //     audioPlaySource.prepareToPlay(SAMPLE_BLOCK_SIZE, reader->sampleRate);
-    //     timer.start();
-    // }
 }
 
 void SoundEngine::pauseAll()
