@@ -11,9 +11,11 @@ SoundLine::SoundLine() {
 
     labelButton.setButtonText("<no sound>");
 
+    audioFileData = std::make_shared<AudioFileData>();
+
     // Setup sequencer state
     for(int i = 0; i < NUM_BEATS; i++) {
-        currentSequence.push_back(0);
+        audioFileData->sequence.push_back(0);
     }
 
     container.items.addArray({
@@ -42,19 +44,13 @@ SoundLine::~SoundLine()
     }
 }
 
-juce::File * SoundLine::getCurrentFile()
-{
+std::shared_ptr<AudioFileData> SoundLine::getCurrentFileData() {
     if(hasFile) {
-        return &audioFile;
+        return audioFileData;
     }
     else {
         return nullptr;
     }
-}
-
-std::vector<int> SoundLine::getCurrentSequence()
-{
-    return currentSequence;
 }
 
 void SoundLine::resized() {
@@ -78,7 +74,7 @@ void SoundLine::buttonClicked(juce::Button *button)
         int fileChooserFlags = juce::FileBrowserComponent::openMode | juce::FileBrowserComponent::canSelectFiles;
         fileChooser->launchAsync(fileChooserFlags, [this] (const juce::FileChooser& chooser) {
             juce::File selectedFile (chooser.getResult());
-            audioFile = selectedFile;
+            this->audioFileData->file = std::make_shared<juce::File>(selectedFile);
             this->hasFile = true;
             labelButton.setButtonText(selectedFile.getFileName());
         });
@@ -88,7 +84,7 @@ void SoundLine::buttonClicked(juce::Button *button)
     int beatButtonIndex = findIndex(beatButtons, button);
 
     if(beatButtonIndex != -1) {
-        currentSequence[beatButtonIndex] = button->getToggleState();
+        audioFileData->sequence[beatButtonIndex] = button->getToggleState();
     }
 }
 

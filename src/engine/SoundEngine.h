@@ -4,20 +4,15 @@
 #include <juce_audio_devices/juce_audio_devices.h>
 #include "../components/SoundLine.h"
 #include "SequenceTimer.h"
+#include "../types/AudioTypes.h"
 
-struct AudioFileData {
-    juce::File * file;
-    std::vector<int> sequence;
-    juce::AudioFormatReaderSource * formatReaderSource;
-    juce::AudioTransportSource * transportSource;
-};
 
 class SoundEngine {
 public:
     SoundEngine();
-    ~SoundEngine();
+    virtual ~SoundEngine();
 
-    void playAll(std::vector<SoundLine *> sounds);
+    void playAll(std::vector<AudioFileData *> sounds);
     void pauseAll();
 private:
     juce::MixerAudioSource mixerAudioSource;
@@ -25,7 +20,7 @@ private:
     juce::AudioSourcePlayer audioSourcePlayer;
     juce::AudioDeviceManager deviceManager;
 
-    std::vector<AudioFileData> allSounds;
+    std::vector<AudioFileData *> allSounds;
     SequenceTimer timer;
     int beatCounter = 0;
 

@@ -12,7 +12,7 @@ public:
     ~Sequencer() override;
 
     void resized() override;
-    std::vector<SoundLine *> getSounds();
+    std::vector<AudioFileData *> getSounds();
 
 private:
     std::vector<SoundLine *> soundList;

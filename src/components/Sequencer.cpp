@@ -28,7 +28,12 @@ void Sequencer::resized() {
     }
 }
 
-std::vector<SoundLine *> Sequencer::getSounds()
+std::vector<AudioFileData *> Sequencer::getSounds()
 {
-    return soundList;
+    std::vector<AudioFileData *> output;
+    auto mapper = [] (SoundLine * line) {
+        return line->getCurrentFileData().get();
+    };
+    std::transform(soundList.begin(), soundList.end(), std::back_inserter(output), mapper);
+    return output;
 }

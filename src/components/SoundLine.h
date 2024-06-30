@@ -4,6 +4,7 @@
 #include <juce_gui_extra/juce_gui_extra.h>
 #include <juce_audio_formats/juce_audio_formats.h>
 #include <vector>
+#include "../types/AudioTypes.h"
 
 class SoundLine : public juce::Component, 
                   public juce::Button::Listener
@@ -12,8 +13,7 @@ public:
     SoundLine();
     ~SoundLine() override;
 
-    juce::File * getCurrentFile();
-    std::vector<int> getCurrentSequence();
+    std::shared_ptr<AudioFileData> getCurrentFileData();
 
     void resized() override;
 
@@ -25,6 +25,8 @@ private:
 
     juce::File audioFile;
     std::vector<int> currentSequence;
+
+    std::shared_ptr<AudioFileData> audioFileData;
 
     bool hasFile = false;
 

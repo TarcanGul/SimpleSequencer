@@ -11,9 +11,8 @@ timer(120, std::bind(&SoundEngine::onBeatHit, this)), allSounds(6) {
 SoundEngine::~SoundEngine()
 {
     for(const auto& sound : allSounds) {
-        if(sound.file != nullptr) {
-            sound.formatReaderSource->releaseResources();
-            delete sound.formatReaderSource;
+        if(sound->file != nullptr) {
+            sound->formatReaderSource->releaseResources();
         }
     }
 
@@ -22,26 +21,34 @@ SoundEngine::~SoundEngine()
     deviceManager.closeAudioDevice();
 }
 
-void SoundEngine::playAll(std::vector<SoundLine *> sounds)
+void SoundEngine::playAll(std::vector<AudioFileData *> sounds)
 {
     int sampleRate = 44100;
     for(int i = 0; i < sounds.size(); ++i) {
-        juce::File * lineFile = sounds.at(i)->getCurrentFile();
-        if(lineFile == nullptr) {
-            this->allSounds[i].file = nullptr;
-            this->allSounds[i].sequence = {};
-            this->allSounds[i].formatReaderSource = nullptr;
-            this->allSounds[i].transportSource = nullptr;
+        auto * currentAudioData = sounds[i];
+        if(currentAudioData == nullptr) {
             continue;
         }
-        this->allSounds[i].file = lineFile;
-        this->allSounds[i].sequence = sounds.at(i)->getCurrentSequence();
+        this->allSounds[i] = currentAudioData;
+        std::shared_ptr<juce::File> lineFile = currentAudioData->file;
+        if(lineFile == nullptr) {
+            this->allSounds[i]->file = nullptr;
+            this->allSounds[i]->sequence = {};
+            this->allSounds[i]->formatReaderSource = nullptr;
+            this->allSounds[i]->transportSource = nullptr;
+            continue;
+        }
+        
+        this->allSounds[i]->file = lineFile;
+        this->allSounds[i]->sequence = sounds.at(i)->sequence;
         juce::AudioFormatReader * reader = audioFormatManager.createReaderFor (*lineFile);
         if(reader != nullptr) {
-            this->allSounds[i].formatReaderSource = new juce::AudioFormatReaderSource(reader, true);
-            this->allSounds[i].transportSource = new juce::AudioTransportSource();
-            this->allSounds[i].transportSource->setSource(this->allSounds[i].formatReaderSource, 0, nullptr, reader->sampleRate);
-            mixerAudioSource.addInputSource(this->allSounds[i].transportSource, true);
+            //sounds[i]->formatReaderSource = std::make_shared<juce::AudioFormatReaderSource>(reader, true);
+            this->allSounds[i]->formatReaderSource = std::make_shared<juce::AudioFormatReaderSource>(reader, true);
+            //sounds[i] -> transportSource = std::make_shared<juce::AudioTransportSource>();
+            this->allSounds[i]->transportSource = std::make_shared<juce::AudioTransportSource>();
+            this->allSounds[i]->transportSource->setSource(this->allSounds[i]->formatReaderSource.get(), 0, nullptr, reader->sampleRate);
+            mixerAudioSource.addInputSource(this->allSounds[i]->transportSource.get(), false);
             sampleRate = reader->sampleRate;
         }
     }
@@ -53,13 +60,12 @@ void SoundEngine::pauseAll()
 {
     if(timer.isTimerRunning()) {
         for(const auto& sound : allSounds) {
-            if(sound.transportSource == nullptr) {
+            if(sound == nullptr || sound->transportSource == nullptr) {
                 continue;
             }
-
-            sound.transportSource->stop();
-            sound.transportSource->setPosition(0.0);
-            sound.transportSource->setSource(nullptr);
+            sound->transportSource->stop();
+            sound->transportSource->setPosition(0.0);
+            sound->transportSource->setSource(nullptr);
         }
         mixerAudioSource.removeAllInputs();
         timer.stop();
@@ -71,20 +77,20 @@ void SoundEngine::onBeatHit()
 {
     for(int i = 0 ; i < allSounds.size(); i++) {
         auto sound = allSounds[i];
-        if(sound.transportSource == nullptr) {
+        if(sound == nullptr || sound->transportSource == nullptr) {
             continue;
         }
-        if(sound.transportSource->isPlaying() || sound.transportSource->hasStreamFinished()) {
-            sound.transportSource->stop();
-            sound.transportSource->setPosition(0.0);
+        if(sound->transportSource->isPlaying() || sound->transportSource->hasStreamFinished()) {
+            sound->transportSource->stop();
+            sound->transportSource->setPosition(0.0);
         }
 
-        if(sound.sequence.empty()) {
+        if(sound->sequence.empty()) {
             continue;
         }
 
-        if(sound.sequence[beatCounter] > 0) {
-            sound.transportSource->start();
+        if(sound->sequence[beatCounter] > 0) {
+            sound->transportSource->start();
         }
     }
 
