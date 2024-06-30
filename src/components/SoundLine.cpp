@@ -73,10 +73,13 @@ void SoundLine::buttonClicked(juce::Button *button)
     if(button == &labelButton) {
         int fileChooserFlags = juce::FileBrowserComponent::openMode | juce::FileBrowserComponent::canSelectFiles;
         fileChooser->launchAsync(fileChooserFlags, [this] (const juce::FileChooser& chooser) {
-            juce::File selectedFile (chooser.getResult());
-            this->audioFileData->file = std::make_shared<juce::File>(selectedFile);
-            this->hasFile = true;
-            labelButton.setButtonText(selectedFile.getFileName());
+            if(chooser.getResult() != juce::File()) {
+                juce::File selectedFile (chooser.getResult());
+                this->audioFileData->file = std::make_shared<juce::File>(selectedFile);
+                this->audioFileData->sourcesNeedUpdate = true;
+                this->hasFile = true;
+                labelButton.setButtonText(selectedFile.getFileName());
+            }
         });
         return;
     }

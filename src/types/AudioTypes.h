@@ -7,6 +7,7 @@
 struct AudioFileData {
     std::shared_ptr<juce::File> file;
     std::vector<int> sequence;
+    bool sourcesNeedUpdate = false;
     std::shared_ptr<juce::AudioFormatReaderSource> formatReaderSource;
     std::shared_ptr<juce::AudioTransportSource> transportSource;
 

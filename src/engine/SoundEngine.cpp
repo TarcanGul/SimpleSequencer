@@ -11,7 +11,7 @@ timer(120, std::bind(&SoundEngine::onBeatHit, this)), allSounds(6) {
 SoundEngine::~SoundEngine()
 {
     for(const auto& sound : allSounds) {
-        if(sound->file != nullptr) {
+        if(sound != nullptr && sound->file != nullptr) {
             sound->formatReaderSource->releaseResources();
         }
     }
@@ -23,34 +23,34 @@ SoundEngine::~SoundEngine()
 
 void SoundEngine::playAll(std::vector<AudioFileData *> sounds)
 {
-    int sampleRate = 44100;
+    // Prepare sounds by making sure the vector is updated with the sounds in the argument.
     for(int i = 0; i < sounds.size(); ++i) {
-        auto * currentAudioData = sounds[i];
-        if(currentAudioData == nullptr) {
+        this->allSounds[i] = sounds[i];
+    }
+
+    int sampleRate = 44100;
+
+    // Play files
+    for(int i = 0; i < this->allSounds.size(); ++i) {
+        auto * currentAudioFileData = this->allSounds.at(i);
+        if(currentAudioFileData == nullptr) {
             continue;
         }
-        this->allSounds[i] = currentAudioData;
-        std::shared_ptr<juce::File> lineFile = currentAudioData->file;
-        if(lineFile == nullptr) {
-            this->allSounds[i]->file = nullptr;
-            this->allSounds[i]->sequence = {};
-            this->allSounds[i]->formatReaderSource = nullptr;
-            this->allSounds[i]->transportSource = nullptr;
-            continue;
+        if(currentAudioFileData->sourcesNeedUpdate) {
+            if(currentAudioFileData->transportSource != nullptr) {
+                currentAudioFileData->transportSource->setSource(nullptr);
+            }
+
+            juce::AudioFormatReader * reader = audioFormatManager.createReaderFor (*currentAudioFileData->file);
+            if(reader != nullptr) {
+                currentAudioFileData->formatReaderSource = std::make_shared<juce::AudioFormatReaderSource>(reader, true);
+                currentAudioFileData->transportSource = std::make_shared<juce::AudioTransportSource>();
+                currentAudioFileData->transportSource->setSource(currentAudioFileData->formatReaderSource.get(), 0, nullptr, sampleRate);
+            }
+            currentAudioFileData->sourcesNeedUpdate = false;
         }
-        
-        this->allSounds[i]->file = lineFile;
-        this->allSounds[i]->sequence = sounds.at(i)->sequence;
-        juce::AudioFormatReader * reader = audioFormatManager.createReaderFor (*lineFile);
-        if(reader != nullptr) {
-            //sounds[i]->formatReaderSource = std::make_shared<juce::AudioFormatReaderSource>(reader, true);
-            this->allSounds[i]->formatReaderSource = std::make_shared<juce::AudioFormatReaderSource>(reader, true);
-            //sounds[i] -> transportSource = std::make_shared<juce::AudioTransportSource>();
-            this->allSounds[i]->transportSource = std::make_shared<juce::AudioTransportSource>();
-            this->allSounds[i]->transportSource->setSource(this->allSounds[i]->formatReaderSource.get(), 0, nullptr, reader->sampleRate);
-            mixerAudioSource.addInputSource(this->allSounds[i]->transportSource.get(), false);
-            sampleRate = reader->sampleRate;
-        }
+
+        mixerAudioSource.addInputSource(currentAudioFileData->transportSource.get(), false);
     }
     mixerAudioSource.prepareToPlay(SAMPLE_BLOCK_SIZE, sampleRate);
     timer.start();
@@ -65,7 +65,7 @@ void SoundEngine::pauseAll()
             }
             sound->transportSource->stop();
             sound->transportSource->setPosition(0.0);
-            sound->transportSource->setSource(nullptr);
+            // sound->transportSource->setSource(nullptr);
         }
         mixerAudioSource.removeAllInputs();
         timer.stop();
