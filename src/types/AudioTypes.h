@@ -17,5 +17,4 @@ struct AudioFileData {
         formatReaderSource = nullptr;
         transportSource = nullptr;
     }
-    AudioFileData(AudioFileData& other);
 };
