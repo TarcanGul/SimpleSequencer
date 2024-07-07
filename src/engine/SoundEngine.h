@@ -1,3 +1,4 @@
+#pragma once
 
 #include <juce_audio_basics/juce_audio_basics.h>
 #include <juce_audio_formats/juce_audio_formats.h>
@@ -27,5 +28,6 @@ private:
     void onBeatHit();
 
     static const int SAMPLE_BLOCK_SIZE = 128;
+    static const int SAMPLE_RATE = 44100;
 
 };

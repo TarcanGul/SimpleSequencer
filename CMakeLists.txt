@@ -2,7 +2,25 @@ cmake_minimum_required(VERSION 3.29)
 
 project(SimpleSequencer VERSION 1.0)
 
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+enable_testing()
+
 find_package(JUCE CONFIG REQUIRED)
+find_package(Boost COMPONENTS unit_test_framework REQUIRED)
+
+include_directories(${Boost_INCLUDE_DIRS})
+
+file(GLOB_RECURSE TEST_SRCS test/*.cpp)
+
+foreach(testSrc ${TEST_SRCS})
+    get_filename_component(testName ${testSrc} NAME_WE)
+    add_executable(${testName} ${testSrc})
+    target_link_libraries(${testName} ${Boost_LIBRARIES})
+    add_test(NAME ${testName} COMMAND ${testName})
+endforeach()
+
 
 juce_add_gui_app(${CMAKE_PROJECT_NAME}
 COMPANY_NAME "TarcanGul"

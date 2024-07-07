@@ -28,8 +28,6 @@ void SoundEngine::playAll(std::vector<AudioFileData *> sounds)
         this->allSounds[i] = sounds[i];
     }
 
-    int sampleRate = 44100;
-
     // Play files
     for(int i = 0; i < this->allSounds.size(); ++i) {
         auto * currentAudioFileData = this->allSounds.at(i);
@@ -45,14 +43,14 @@ void SoundEngine::playAll(std::vector<AudioFileData *> sounds)
             if(reader != nullptr) {
                 currentAudioFileData->formatReaderSource = std::make_shared<juce::AudioFormatReaderSource>(reader, true);
                 currentAudioFileData->transportSource = std::make_shared<juce::AudioTransportSource>();
-                currentAudioFileData->transportSource->setSource(currentAudioFileData->formatReaderSource.get(), 0, nullptr, sampleRate);
+                currentAudioFileData->transportSource->setSource(currentAudioFileData->formatReaderSource.get(), 0, nullptr, SAMPLE_RATE);
             }
             currentAudioFileData->sourcesNeedUpdate = false;
         }
 
         mixerAudioSource.addInputSource(currentAudioFileData->transportSource.get(), false);
     }
-    mixerAudioSource.prepareToPlay(SAMPLE_BLOCK_SIZE, sampleRate);
+    mixerAudioSource.prepareToPlay(SAMPLE_BLOCK_SIZE, SAMPLE_RATE);
     timer.start();
 }
 
