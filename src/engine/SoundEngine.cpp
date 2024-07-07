@@ -1,7 +1,7 @@
 #include "SoundEngine.h"
 
 SoundEngine::SoundEngine() : 
-timer(120, std::bind(&SoundEngine::onBeatHit, this)), allSounds(6) {
+timer(120, std::bind(&SoundEngine::onBeatHit, this)), allSounds(INIT_NUM_OF_SOUNDS) {
     audioFormatManager.registerBasicFormats();
     deviceManager.initialise(0, 2, nullptr, true);
     deviceManager.addAudioCallback(&audioSourcePlayer);
@@ -93,5 +93,5 @@ void SoundEngine::onBeatHit()
     }
 
     beatCounter++;
-    beatCounter %= 8;
+    beatCounter %= numBeats;
 }

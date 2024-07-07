@@ -10,17 +10,6 @@ enable_testing()
 find_package(JUCE CONFIG REQUIRED)
 find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 
-include_directories(${Boost_INCLUDE_DIRS})
-
-file(GLOB_RECURSE TEST_SRCS test/*.cpp)
-
-foreach(testSrc ${TEST_SRCS})
-    get_filename_component(testName ${testSrc} NAME_WE)
-    add_executable(${testName} ${testSrc})
-    target_link_libraries(${testName} ${Boost_LIBRARIES})
-    add_test(NAME ${testName} COMMAND ${testName})
-endforeach()
-
 
 juce_add_gui_app(${CMAKE_PROJECT_NAME}
 COMPANY_NAME "TarcanGul"
@@ -60,3 +49,23 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
         juce::juce_recommended_lto_flags
         juce::juce_recommended_warning_flags
 )
+
+include_directories(${Boost_INCLUDE_DIRS})
+
+file(GLOB_RECURSE TEST_SRCS test/*.cpp)
+
+foreach(testSrc ${TEST_SRCS})
+    get_filename_component(testName ${testSrc} NAME_WE)
+    add_executable(${testName} ${testSrc})
+    target_link_libraries(${testName} 
+    PRIVATE 
+        ${Boost_LIBRARIES}
+        juce::juce_core
+        juce::juce_gui_basics
+        juce::juce_gui_extra
+        juce::juce_audio_basics
+        juce::juce_audio_formats
+        juce::juce_audio_devices
+    )
+    add_test(NAME ${testName} COMMAND ${testName})
+endforeach()

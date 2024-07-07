@@ -23,11 +23,13 @@ private:
 
     std::vector<AudioFileData *> allSounds;
     SequenceTimer timer;
+    int numBeats = 8;
     int beatCounter = 0;
 
     void onBeatHit();
 
     static const int SAMPLE_BLOCK_SIZE = 128;
     static const int SAMPLE_RATE = 44100;
+    static const int INIT_NUM_OF_SOUNDS = 6;
 
 };
