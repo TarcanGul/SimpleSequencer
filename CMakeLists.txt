@@ -56,7 +56,7 @@ file(GLOB_RECURSE TEST_SRCS test/*.cpp)
 
 foreach(testSrc ${TEST_SRCS})
     get_filename_component(testName ${testSrc} NAME_WE)
-    add_executable(${testName} ${testSrc})
+    add_executable(${testName} ${testSrc} src/engine/SoundEngine.cpp src/engine/SequenceTimer.cpp)
     target_link_libraries(${testName} 
     PRIVATE 
         ${Boost_LIBRARIES}
@@ -66,6 +66,10 @@ foreach(testSrc ${TEST_SRCS})
         juce::juce_audio_basics
         juce::juce_audio_formats
         juce::juce_audio_devices
+    PUBLIC
+        juce::juce_recommended_config_flags
+        juce::juce_recommended_lto_flags
+        juce::juce_recommended_warning_flags
     )
     add_test(NAME ${testName} COMMAND ${testName})
 endforeach()

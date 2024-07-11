@@ -42,7 +42,12 @@ private:
     juce::Slider bpmSlider;
 
     Sequencer sequencer;
-    SoundEngine soundEngine;
+
+    juce::MixerAudioSource mixerAudioSource;
+    juce::AudioFormatManager audioFormatManager;
+    juce::AudioSourcePlayer audioSourcePlayer;
+    juce::AudioDeviceManager deviceManager;
+    std::unique_ptr<SoundEngine> soundEngine;
 
     enum ColorPalette {
         Background, 

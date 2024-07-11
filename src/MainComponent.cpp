@@ -5,6 +5,8 @@ MainComponent::MainComponent()
 {
     setSize (600, 600);
 
+    soundEngine = std::make_unique<SoundEngine>(mixerAudioSource, audioFormatManager, audioSourcePlayer, deviceManager);
+
     // Set palette.
     lookAndFeel.setColour(ColorPalette::Background, juce::Colour::fromRGBA(100, 13, 107, 255));
     lookAndFeel.setColour(ColorPalette::Primary, juce::Colour::fromRGBA(181, 27, 117, 255));
@@ -95,10 +97,10 @@ void MainComponent::buttonClicked(juce::Button *button)
         if(!isPlaying) {
             // Should get everything from sequencer and be able to play it.
             auto allSounds = sequencer.getSounds();
-            soundEngine.playAll(allSounds);
+            soundEngine->playAll(allSounds);
         }
         else {
-            soundEngine.pauseAll();
+            soundEngine->pauseAll();
         }
 
         playButton -> setToggleState(!isPlaying, juce::NotificationType::dontSendNotification);

@@ -10,16 +10,19 @@
 
 class SoundEngine {
 public:
-    SoundEngine();
+    SoundEngine(juce::MixerAudioSource& mixerAudioSource, 
+        juce::AudioFormatManager& audioFormatManager,
+        juce::AudioSourcePlayer& audioSourcePlayer,
+        juce::AudioDeviceManager& deviceManager);
     virtual ~SoundEngine();
 
     void playAll(std::vector<AudioFileData *> sounds);
     void pauseAll();
 private:
-    juce::MixerAudioSource mixerAudioSource;
-    juce::AudioFormatManager audioFormatManager;
-    juce::AudioSourcePlayer audioSourcePlayer;
-    juce::AudioDeviceManager deviceManager;
+    juce::MixerAudioSource& mixerAudioSource_;
+    juce::AudioFormatManager& audioFormatManager_;
+    juce::AudioSourcePlayer& audioSourcePlayer_;
+    juce::AudioDeviceManager& deviceManager_;
 
     std::vector<AudioFileData *> allSounds;
     SequenceTimer timer;

@@ -4,7 +4,7 @@
 class SequenceTimer : public juce::HighResolutionTimer {
     public:
         SequenceTimer(unsigned int bpm, std::function<void()> timerCallback);
-        ~SequenceTimer();
+        ~SequenceTimer() override;
         void hiResTimerCallback () override;
         void start();
         void stop();

@@ -5,5 +5,27 @@
 
 BOOST_AUTO_TEST_CASE(playAllTest) 
 {
-    BOOST_CHECK_EQUAL(1, 1);
+    fakeit::Mock<juce::MixerAudioSource> mixerAudioSourceMock;
+    juce::AudioFormatManager formatManagerMock;
+    fakeit::Mock<juce::AudioSourcePlayer> audioSourcePlayerMock;
+    fakeit::Mock<juce::AudioDeviceManager> deviceManagerMock;
+
+    SoundEngine soundEngine(mixerAudioSourceMock.get(), formatManagerMock, audioSourcePlayerMock.get(), deviceManagerMock.get());
+
+    std::vector<AudioFileData *> testAudioData(8);
+
+    soundEngine.playAll(std::vector<AudioFileData *>());
+}
+
+BOOST_AUTO_TEST_CASE(playAllTestEmptyVector) 
+{
+    fakeit::Mock<juce::MixerAudioSource> mixerAudioSourceMock;
+    juce::AudioFormatManager formatManagerMock;
+    fakeit::Mock<juce::AudioSourcePlayer> audioSourcePlayerMock;
+    fakeit::Mock<juce::AudioDeviceManager> deviceManagerMock;
+
+    SoundEngine soundEngine(mixerAudioSourceMock.get(), formatManagerMock, audioSourcePlayerMock.get(), deviceManagerMock.get());
+
+    soundEngine.playAll(std::vector<AudioFileData *>());
+
 }
