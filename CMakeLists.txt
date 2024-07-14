@@ -23,6 +23,7 @@ target_sources(${CMAKE_PROJECT_NAME}
 
         src/components/Sequencer.cpp
         src/components/SoundLine.cpp
+        src/components/BeatButton.cpp
 
         src/engine/SoundEngine.cpp
         src/engine/SequenceTimer.cpp

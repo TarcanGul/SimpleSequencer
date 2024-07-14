@@ -5,6 +5,7 @@
 #include <juce_audio_formats/juce_audio_formats.h>
 #include <vector>
 #include "../types/AudioTypes.h"
+#include "BeatButton.h"
 
 class SoundLine : public juce::Component, 
                   public juce::Button::Listener

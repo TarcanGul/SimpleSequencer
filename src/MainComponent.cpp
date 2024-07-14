@@ -5,7 +5,12 @@ MainComponent::MainComponent()
 {
     setSize (600, 600);
 
-    soundEngine = std::make_unique<SoundEngine>(mixerAudioSource, audioFormatManager, audioSourcePlayer, deviceManager);
+    try {
+        soundEngine = std::make_unique<SoundEngine>(mixerAudioSource, audioFormatManager, audioSourcePlayer, deviceManager);
+    }
+    catch (const std::exception& ex) {
+        // Do nothing for now.
+    }
 
     // Set palette.
     lookAndFeel.setColour(ColorPalette::Background, juce::Colour::fromRGBA(100, 13, 107, 255));

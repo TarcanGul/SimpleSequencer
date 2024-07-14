@@ -27,7 +27,7 @@ SoundLine::SoundLine() {
     addAndMakeVisible(labelButton);
 
     for(int i = 0; i < NUM_BEATS; i++) {
-        juce::Button * button = new juce::ToggleButton();
+        juce::Button * button = new BeatButton("buttonName");
         beatButtons.push_back(button);
         button->addListener(this);
         addAndMakeVisible(button);
