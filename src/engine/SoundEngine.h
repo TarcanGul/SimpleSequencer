@@ -14,13 +14,15 @@ public:
     SoundEngine(juce::MixerAudioSource& mixerAudioSource, 
         juce::AudioFormatManager& audioFormatManager,
         juce::AudioSourcePlayer& audioSourcePlayer,
-        juce::AudioDeviceManager& deviceManager);
+        juce::AudioDeviceManager& deviceManager,
+        double defaultBpm = 120);
     virtual ~SoundEngine();
 
     void playAll(std::vector<AudioFileData *> sounds);
     void pauseAll();
     void setBpm(double bpm);
 private:
+
     juce::MixerAudioSource& mixerAudioSource_;
     juce::AudioFormatManager& audioFormatManager_;
     juce::AudioSourcePlayer& audioSourcePlayer_;

@@ -1,11 +1,16 @@
 #include "SoundEngine.h"
 
-SoundEngine::SoundEngine(juce::MixerAudioSource& mixerAudioSource, juce::AudioFormatManager& audioFormatManager, juce::AudioSourcePlayer& audioSourcePlayer, juce::AudioDeviceManager& deviceManager) :
+SoundEngine::SoundEngine(
+    juce::MixerAudioSource& mixerAudioSource, 
+    juce::AudioFormatManager& audioFormatManager, 
+    juce::AudioSourcePlayer& audioSourcePlayer, 
+    juce::AudioDeviceManager& deviceManager,
+    double defaultBpm) :
 mixerAudioSource_(mixerAudioSource),
 audioFormatManager_(audioFormatManager),
 audioSourcePlayer_(audioSourcePlayer),
 deviceManager_(deviceManager),
-timer(120, std::bind(&SoundEngine::onBeatHit, this)), 
+timer(defaultBpm, std::bind(&SoundEngine::onBeatHit, this)), 
 allSounds(INIT_NUM_OF_SOUNDS) {
     audioFormatManager_.registerBasicFormats();
     deviceManager_.initialise(0, 2, nullptr, true);

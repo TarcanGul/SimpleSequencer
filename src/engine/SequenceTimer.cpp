@@ -4,7 +4,6 @@ SequenceTimer::SequenceTimer(int bpm, std::function<void()> timer_callback)
 {
     bpm_ = bpm;
     timer_callback_ = timer_callback;
-    beats_per_measure_ = 4;
 }
 
 SequenceTimer::~SequenceTimer()

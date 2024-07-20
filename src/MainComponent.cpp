@@ -42,8 +42,12 @@ MainComponent::MainComponent()
     bpmSlider.setHelpText("BPM");
 
     try {
-        soundEngine = std::make_unique<SoundEngine>(mixerAudioSource, audioFormatManager, audioSourcePlayer, deviceManager);
-        soundEngine.get()->setBpm((double) bpmSlider.getValue());
+        soundEngine = std::make_unique<SoundEngine>(
+            mixerAudioSource, 
+            audioFormatManager, 
+            audioSourcePlayer, 
+            deviceManager, 
+            bpmSlider.getValue());
     }
     catch (const std::exception& ex) {
         // Do nothing for now.
