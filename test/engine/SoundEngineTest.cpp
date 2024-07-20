@@ -3,14 +3,22 @@
 #include "../../external/FakeIt/boost/fakeit.hpp"
 #include "../../src/engine/SoundEngine.h"
 
+using namespace fakeit;
+
 BOOST_AUTO_TEST_CASE(playAllTest) 
 {
-    fakeit::Mock<juce::MixerAudioSource> mixerAudioSourceMock;
-    juce::AudioFormatManager formatManagerMock;
-    fakeit::Mock<juce::AudioSourcePlayer> audioSourcePlayerMock;
-    juce::AudioDeviceManager deviceManagerMock;
+    Mock<juce::MixerAudioSource> mixerAudioSourceMock;
 
-    SoundEngine soundEngine(mixerAudioSourceMock.get(), formatManagerMock, audioSourcePlayerMock.get(), deviceManagerMock);
+    // Cannot mock this since it is not polymorphic.
+    juce::AudioFormatManager formatManagerMock;
+    Mock<juce::AudioSourcePlayer> audioSourcePlayerMock;
+    Mock<juce::AudioDeviceManager> deviceManagerMock;
+
+    When(Method(deviceManagerMock, initialise)).Return(juce::String(""));
+    When(Method(deviceManagerMock, addAudioCallback)).Return();
+    When(Method(audioSourcePlayerMock, setSource)).Return();
+
+    SoundEngine soundEngine(mixerAudioSourceMock.get(), formatManagerMock, audioSourcePlayerMock.get(), deviceManagerMock.get());
 
     std::vector<AudioFileData *> testAudioData(8);
 

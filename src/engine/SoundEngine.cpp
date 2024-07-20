@@ -8,13 +8,9 @@ deviceManager_(deviceManager),
 timer(120, std::bind(&SoundEngine::onBeatHit, this)), 
 allSounds(INIT_NUM_OF_SOUNDS) {
     audioFormatManager_.registerBasicFormats();
-    juce::String err = deviceManager_.initialise(0, 2, nullptr, true);
-    if(err.isNotEmpty()) {
-        std::cout << err << '\n';
-        throw std::runtime_error(err.toStdString());
-    }
+    deviceManager_.initialise(0, 2, nullptr, true);
     deviceManager_.addAudioCallback(&audioSourcePlayer_);
-    audioSourcePlayer.setSource(&mixerAudioSource_);
+    audioSourcePlayer_.setSource(&mixerAudioSource_);
 }
 
 SoundEngine::~SoundEngine() {
@@ -71,12 +67,16 @@ void SoundEngine::pauseAll()
             }
             sound->transportSource->stop();
             sound->transportSource->setPosition(0.0);
-            // sound->transportSource->setSource(nullptr);
         }
         mixerAudioSource_.removeAllInputs();
         timer.stop();
         beatCounter = 0;
     }
+}
+
+void SoundEngine::setBpm(double bpm)
+{
+    timer.setBpm(bpm);
 }
 
 void SoundEngine::onBeatHit()

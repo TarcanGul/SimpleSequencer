@@ -27,8 +27,11 @@ public:
 
 private:
     //==============================================================================
-    // Your private member variables go here...
     const int BACKGROUND_RECT_MARGIN = 5;
+    const int DEFAULT_BPM = 120;
+    const int MIN_BPM = 80;
+    const int MAX_BPM = 200;
+
     juce::LookAndFeel_V4 lookAndFeel;
     juce::DrawableRectangle backgroundRectangle;
 
@@ -57,6 +60,7 @@ private:
     };
 
     void buttonClicked(juce::Button * button) override;
+    void onBpmSliderChange();
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };

@@ -19,6 +19,7 @@ public:
 
     void playAll(std::vector<AudioFileData *> sounds);
     void pauseAll();
+    void setBpm(double bpm);
 private:
     juce::MixerAudioSource& mixerAudioSource_;
     juce::AudioFormatManager& audioFormatManager_;

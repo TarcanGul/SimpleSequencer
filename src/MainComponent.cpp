@@ -5,12 +5,6 @@ MainComponent::MainComponent()
 {
     setSize (600, 600);
 
-    try {
-        soundEngine = std::make_unique<SoundEngine>(mixerAudioSource, audioFormatManager, audioSourcePlayer, deviceManager);
-    }
-    catch (const std::exception& ex) {
-        // Do nothing for now.
-    }
 
     // Set palette.
     lookAndFeel.setColour(ColorPalette::Background, juce::Colour::fromRGBA(100, 13, 107, 255));
@@ -43,8 +37,21 @@ MainComponent::MainComponent()
     bpmSlider.setIncDecButtonsMode(juce::Slider::IncDecButtonMode::incDecButtonsDraggable_Vertical);
     bpmSlider.setColour(bpmSlider.backgroundColourId, lookAndFeel.findColour(ColorPalette::Primary));
     bpmSlider.setColour(bpmSlider.trackColourId, lookAndFeel.findColour(ColorPalette::Primary));
-    bpmSlider.setRange(80, 250, 0.5);
+    bpmSlider.setRange(MIN_BPM, MAX_BPM, 0.5);
+    bpmSlider.setValue(DEFAULT_BPM);
     bpmSlider.setHelpText("BPM");
+
+    try {
+        soundEngine = std::make_unique<SoundEngine>(mixerAudioSource, audioFormatManager, audioSourcePlayer, deviceManager);
+        soundEngine.get()->setBpm((double) bpmSlider.getValue());
+    }
+    catch (const std::exception& ex) {
+        // Do nothing for now.
+        std::cout << ex.what() << '\n';
+    }
+
+    bpmSlider.onValueChange = std::bind(&MainComponent::onBpmSliderChange, this);
+    // bpmSlider.onValueChange = [this] {onBpmSliderChange(); };
 
     std::unique_ptr<juce::Drawable> playIcon = juce::Drawable::createFromImageFile(juce::File("/Users/tarcangul/projects/simple-sequencer/src/assets/play.png"));
     std::unique_ptr<juce::Drawable> pauseIcon = juce::Drawable::createFromImageFile(juce::File("/Users/tarcangul/projects/simple-sequencer/src/assets/pause.png"));
@@ -110,4 +117,10 @@ void MainComponent::buttonClicked(juce::Button *button)
 
         playButton -> setToggleState(!isPlaying, juce::NotificationType::dontSendNotification);
     }
+}
+
+void MainComponent::onBpmSliderChange()
+{
+    double updated_value = bpmSlider.getValue();
+    soundEngine->setBpm(updated_value);
 }
