@@ -18,9 +18,11 @@ MainComponent::MainComponent()
     appSection.alignContent = juce::FlexBox::AlignContent::center;
     appSection.flexDirection = juce::FlexBox::Direction::column;
 
+    sequencer_viewport.setViewedComponent(&sequencer, false);
+
     appSection.items = {
         juce::FlexItem(buttonSection).withFlex(0.1f),
-        juce::FlexItem(sequencer).withFlex(0.9f)
+        juce::FlexItem(sequencer_viewport).withFlex(0.9f)
     };
 
     addRowButton.setButtonText("Add row");
@@ -89,7 +91,9 @@ MainComponent::MainComponent()
     addAndMakeVisible(bpmSlider);
     addAndMakeVisible(playButton.get());
     addAndMakeVisible(resetButton.get());
-    addAndMakeVisible(sequencer);
+    // addAndMakeVisible(sequencer);
+    addAndMakeVisible(sequencer_viewport);
+    
 
     appSection.performLayout(backgroundRectangle.getBounds());
     buttonSection.performLayout(appSection.items.getFirst().currentBounds);

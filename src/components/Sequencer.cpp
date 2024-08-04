@@ -2,11 +2,26 @@
 
 Sequencer::Sequencer() {
 
+    setSize(1200, 1200);
+
     for(int i = 0; i < NUM_SOUNDS; i++) {
         SoundLine * soundLine = new SoundLine();
         soundList.push_back(soundLine);
         addAndMakeVisible(soundLine);
     }
+
+    int startingX = getX();
+    int startingY = getY();
+
+    int currentX = startingX;
+    int currentY = startingY;
+    for(auto * soundLine : soundList) {
+        soundLine->setBounds(currentX, currentY, getWidth() - LINE_SIDE_MARGIN, LINE_HEIGHT);
+        currentY += LINE_HEIGHT + LINE_VERTICAL_GAP;
+    }
+
+    lastX = currentX;
+    lastY = currentY;
 }
 
 Sequencer::~Sequencer()
@@ -48,5 +63,4 @@ void Sequencer::addRow()
     soundLine->setBounds(lastX, lastY, getWidth() - LINE_SIDE_MARGIN, LINE_HEIGHT);
     lastY += LINE_HEIGHT + LINE_VERTICAL_GAP;
     addAndMakeVisible(soundLine);
-    repaint();
 }
