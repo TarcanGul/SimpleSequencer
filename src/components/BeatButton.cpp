@@ -15,8 +15,11 @@ void BeatButton::paintButton(juce::Graphics &g, bool shouldDrawButtonAsHighlight
     int markerAreaWidth = 10;
     int markerAreaHeight = 7;
 
-    juce::Rectangle<float> buttonArea(xPos_, yPos_, 20, 28);
-    juce::Rectangle<float> markerArea(xPos_ + markerAreaWidth / 2, yPos_ + 5, markerAreaWidth, markerAreaHeight);
+    int buttonHeight = 28;
+    int buttonWidth = 20;
+
+    juce::Rectangle<float> buttonArea(xPos_, yPos_ + (buttonHeight / 4), buttonWidth, 28);
+    juce::Rectangle<float> markerArea(xPos_ + markerAreaWidth / 2, yPos_ + (buttonHeight / 4) + (markerAreaWidth / 2), markerAreaWidth, markerAreaHeight);
 
     if(shouldDrawButtonAsHighlighted) {
         g.setColour(juce::Colours::whitesmoke);

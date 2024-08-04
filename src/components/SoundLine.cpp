@@ -19,8 +19,8 @@ SoundLine::SoundLine() {
     }
 
     container.items.addArray({
-        juce::FlexItem(labelButton).withFlex(3.0).withMargin(1.0).withMinWidth(20.0),
-        juce::FlexItem().withFlex(0.5), // gap
+        juce::FlexItem(labelButton).withFlex(3.0).withMargin(1.0).withMinWidth(10.0),
+        juce::FlexItem().withFlex(1.0), // gap
     });
 
     labelButton.addListener(this);
@@ -31,7 +31,7 @@ SoundLine::SoundLine() {
         beatButtons.push_back(button);
         button->addListener(this);
         addAndMakeVisible(button);
-        container.items.add(juce::FlexItem(* button).withFlex(1.0).withMargin(4.0).withMinWidth(10.0));
+        container.items.add(juce::FlexItem(* button).withFlex(1.0).withMargin(1.0).withMinWidth(2.0));
     }
 
     container.performLayout(getLocalBounds());

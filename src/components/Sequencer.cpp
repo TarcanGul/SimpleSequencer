@@ -2,7 +2,7 @@
 
 Sequencer::Sequencer() {
 
-    setSize(1200, 1200);
+    setSize(600, NUM_SOUNDS * (LINE_VERTICAL_GAP + LINE_HEIGHT));
 
     for(int i = 0; i < NUM_SOUNDS; i++) {
         SoundLine * soundLine = new SoundLine();
@@ -10,11 +10,13 @@ Sequencer::Sequencer() {
         addAndMakeVisible(soundLine);
     }
 
-    int startingX = getX();
-    int startingY = getY();
+    // Relative to parent 
+    int startingX = 0;
+    int startingY = 0;
 
     int currentX = startingX;
     int currentY = startingY;
+
     for(auto * soundLine : soundList) {
         soundLine->setBounds(currentX, currentY, getWidth() - LINE_SIDE_MARGIN, LINE_HEIGHT);
         currentY += LINE_HEIGHT + LINE_VERTICAL_GAP;
@@ -32,11 +34,16 @@ Sequencer::~Sequencer()
 }
 
 void Sequencer::resized() {
-    int startingX = getX();
-    int startingY = getY();
+
+    // Relative to parent 
+    int startingX = 0;
+    int startingY = 0;
 
     int currentX = startingX;
+
+    // Center from y-axis.
     int currentY = startingY;
+
     for(auto * soundLine : soundList) {
         soundLine->setBounds(currentX, currentY, getWidth() - LINE_SIDE_MARGIN, LINE_HEIGHT);
         currentY += LINE_HEIGHT + LINE_VERTICAL_GAP;
@@ -62,5 +69,6 @@ void Sequencer::addRow()
     soundList.push_back(soundLine);
     soundLine->setBounds(lastX, lastY, getWidth() - LINE_SIDE_MARGIN, LINE_HEIGHT);
     lastY += LINE_HEIGHT + LINE_VERTICAL_GAP;
+    setSize(getWidth(), soundList.size() * (LINE_VERTICAL_GAP + LINE_HEIGHT));
     addAndMakeVisible(soundLine);
 }

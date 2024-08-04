@@ -45,7 +45,7 @@ private:
     juce::Slider bpmSlider;
 
     Sequencer sequencer;
-    juce::Viewport sequencer_viewport;
+    juce::Viewport sequencerViewport;
 
     juce::MixerAudioSource mixerAudioSource;
     juce::AudioFormatManager audioFormatManager;
