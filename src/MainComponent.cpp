@@ -27,6 +27,7 @@ MainComponent::MainComponent()
     addRowButton.setColour(addRowButton.buttonColourId, lookAndFeel.findColour(ColorPalette::Primary));
     addRowButton.setColour(addRowButton.textColourOffId, lookAndFeel.findColour(ColorPalette::Light));
     addRowButton.setColour(addRowButton.textColourOnId, juce::Colours::white);
+    addRowButton.addListener(this);
 
     changeTimeSignatureButton.setButtonText("Set time signature");
     changeTimeSignatureButton.setColour(changeTimeSignatureButton.buttonColourId, lookAndFeel.findColour(ColorPalette::Primary));
@@ -120,6 +121,9 @@ void MainComponent::buttonClicked(juce::Button *button)
         }
 
         playButton -> setToggleState(!isPlaying, juce::NotificationType::dontSendNotification);
+    }
+    else if(button == &addRowButton) {
+        sequencer.addRow();
     }
 }
 
