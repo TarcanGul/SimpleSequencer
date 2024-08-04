@@ -32,9 +32,11 @@ SoundEngine::~SoundEngine() {
 
 void SoundEngine::playAll(std::vector<AudioFileData *> sounds)
 {
+    allSounds.clear();
+
     // Prepare sounds by making sure the vector is updated with the sounds in the argument.
-    for(int i = 0; i < sounds.size(); ++i) {
-        this->allSounds[i] = sounds[i];
+    for(auto &sound : sounds) {
+        allSounds.push_back(sound);
     }
 
     // Play files
