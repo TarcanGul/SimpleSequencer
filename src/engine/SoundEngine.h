@@ -26,6 +26,7 @@ public:
 
     void playAll(std::vector<AudioFileData *> sounds);
     void pauseAll();
+    void reset();
     void setBpm(double bpm);
     void subscribe(SoundEngineEvent event, Handler onEvent);
 private:

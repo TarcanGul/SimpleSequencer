@@ -70,6 +70,7 @@ MainComponent::MainComponent()
     resetButton = std::make_unique<juce::DrawableButton>("resetButton", juce::DrawableButton::ImageOnButtonBackground);
     resetButton->setImages(stopIcon.get());
     resetButton->setColour(juce::TextButton::ColourIds::buttonColourId, lookAndFeel.findColour(ColorPalette::Primary));
+    resetButton->addListener(this);
 
     buttonSection.alignContent = juce::FlexBox::AlignContent::center;
     buttonSection.items = { 
@@ -96,10 +97,6 @@ MainComponent::MainComponent()
 
     appSection.performLayout(backgroundRectangle.getBounds());
     buttonSection.performLayout(appSection.items.getFirst().currentBounds);
-}
-
-void MainComponent::handleBeatAdvance(int updatedBeatValue) {
-
 }
 
 void MainComponent::resized()
@@ -139,6 +136,9 @@ void MainComponent::buttonClicked(juce::Button *button)
     }
     else if(button == &addRowButton) {
         sequencer.addRow();
+    }
+    else if(button == resetButton.get()) {
+        soundEngine->reset();
     }
 }
 

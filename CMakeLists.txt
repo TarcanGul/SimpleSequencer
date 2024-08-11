@@ -46,6 +46,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
         juce::juce_audio_basics
         juce::juce_audio_formats
         juce::juce_audio_devices
+        juce::juce_events
     PUBLIC
         juce::juce_recommended_config_flags
         juce::juce_recommended_lto_flags

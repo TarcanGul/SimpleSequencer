@@ -73,12 +73,26 @@ void SoundEngine::pauseAll()
                 continue;
             }
             sound->transportSource->stop();
+        }
+        timer.stop();
+    }
+}
+
+void SoundEngine::reset()
+{
+    if(timer.isTimerRunning()) {
+        for(const auto& sound : allSounds) {
+            if(sound == nullptr || sound->transportSource == nullptr) {
+                continue;
+            }
+            sound->transportSource->stop();
             sound->transportSource->setPosition(0.0);
         }
-        mixerAudioSource_.removeAllInputs();
         timer.stop();
-        beatCounter = 0;
     }
+    beatCounter = 0;
+    // It is a reset event, send -1 to subscribers
+    fireEvent(SoundEngineEvent::BEAT_ADVANCE, -1);
 }
 
 void SoundEngine::setBpm(double bpm)

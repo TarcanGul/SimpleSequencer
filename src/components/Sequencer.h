@@ -23,6 +23,7 @@ private:
     static const int LINE_HEIGHT = 50;
     static const int LINE_VERTICAL_GAP = 20;
     static const int LINE_SIDE_MARGIN = 20;
+    static const int SOUND_LINE_VERTICAL_START = 50;
 
     BeatMarker beatMarker;
     std::vector<SoundLine *> soundList;

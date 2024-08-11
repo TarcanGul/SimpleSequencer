@@ -6,27 +6,11 @@ Sequencer::Sequencer() : beatMarker(8) {
 
     for(int i = 0; i < NUM_SOUNDS; i++) {
         SoundLine * soundLine = new SoundLine();
+        addAndMakeVisible(soundLine);
         soundList.push_back(soundLine);
     }
 
-    beatMarker.setBounds(0, 0, getWidth() - LINE_SIDE_MARGIN, LINE_HEIGHT);
     addAndMakeVisible(beatMarker);
-
-    // Relative to parent 
-    int startingX = 50;
-    int startingY = 0;
-
-    int currentX = startingX;
-    int currentY = startingY;
-
-    for(auto * soundLine : soundList) {
-        soundLine->setBounds(currentX, currentY, getWidth() - LINE_SIDE_MARGIN, LINE_HEIGHT);
-        addAndMakeVisible(soundLine);
-        currentY += LINE_HEIGHT + LINE_VERTICAL_GAP;
-    }
-
-    lastX = currentX;
-    lastY = currentY;
 }
 
 Sequencer::~Sequencer()
@@ -39,11 +23,10 @@ Sequencer::~Sequencer()
 void Sequencer::resized() {
 
     beatMarker.setBounds(0, 0, getWidth() - LINE_SIDE_MARGIN, LINE_HEIGHT);
-    addAndMakeVisible(beatMarker);
 
     // Relative to parent 
     int startingX = 0;
-    int startingY = 50;
+    int startingY = SOUND_LINE_VERTICAL_START;
 
     int currentX = startingX;
 
@@ -75,7 +58,7 @@ void Sequencer::addRow()
     soundList.push_back(soundLine);
     soundLine->setBounds(lastX, lastY, getWidth() - LINE_SIDE_MARGIN, LINE_HEIGHT);
     lastY += LINE_HEIGHT + LINE_VERTICAL_GAP;
-    setSize(getWidth(), soundList.size() * (LINE_VERTICAL_GAP + LINE_HEIGHT));
+    setSize(getWidth(), soundList.size() * (LINE_VERTICAL_GAP + LINE_HEIGHT) + SOUND_LINE_VERTICAL_START);
     addAndMakeVisible(soundLine);
 }
 
