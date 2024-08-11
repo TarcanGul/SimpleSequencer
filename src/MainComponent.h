@@ -23,6 +23,7 @@ public:
 
     //==============================================================================
     void resized() override;
+    void handleBeatAdvance(int updatedBeatValue);
 
 
 private:

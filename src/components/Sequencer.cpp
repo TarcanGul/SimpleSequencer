@@ -1,17 +1,19 @@
 #include "Sequencer.h"
 
-Sequencer::Sequencer() {
+Sequencer::Sequencer() : beatMarker(8) {
 
     setSize(600, NUM_SOUNDS * (LINE_VERTICAL_GAP + LINE_HEIGHT));
 
     for(int i = 0; i < NUM_SOUNDS; i++) {
         SoundLine * soundLine = new SoundLine();
         soundList.push_back(soundLine);
-        addAndMakeVisible(soundLine);
     }
 
+    beatMarker.setBounds(0, 0, getWidth() - LINE_SIDE_MARGIN, LINE_HEIGHT);
+    addAndMakeVisible(beatMarker);
+
     // Relative to parent 
-    int startingX = 0;
+    int startingX = 50;
     int startingY = 0;
 
     int currentX = startingX;
@@ -19,6 +21,7 @@ Sequencer::Sequencer() {
 
     for(auto * soundLine : soundList) {
         soundLine->setBounds(currentX, currentY, getWidth() - LINE_SIDE_MARGIN, LINE_HEIGHT);
+        addAndMakeVisible(soundLine);
         currentY += LINE_HEIGHT + LINE_VERTICAL_GAP;
     }
 
@@ -35,9 +38,12 @@ Sequencer::~Sequencer()
 
 void Sequencer::resized() {
 
+    beatMarker.setBounds(0, 0, getWidth() - LINE_SIDE_MARGIN, LINE_HEIGHT);
+    addAndMakeVisible(beatMarker);
+
     // Relative to parent 
     int startingX = 0;
-    int startingY = 0;
+    int startingY = 50;
 
     int currentX = startingX;
 
@@ -71,4 +77,9 @@ void Sequencer::addRow()
     lastY += LINE_HEIGHT + LINE_VERTICAL_GAP;
     setSize(getWidth(), soundList.size() * (LINE_VERTICAL_GAP + LINE_HEIGHT));
     addAndMakeVisible(soundLine);
+}
+
+void Sequencer::updateBeat(int updatedBeatValue)
+{
+    beatMarker.updateMarkedBeat(updatedBeatValue);
 }

@@ -33,9 +33,11 @@ void SequenceTimer::setBpm(double bpm)
 {
     bpm_ = bpm;
 
-    // The interval has to be recalculated.
-    stop();
-    start();
+    if(isTimerRunning()) {
+        // The interval has to be recalculated.
+        stop();
+        start();
+    }
 }
 
 void SequenceTimer::setBeatsPerMeasure(int beats_per_measure)

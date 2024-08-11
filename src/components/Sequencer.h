@@ -5,6 +5,7 @@
 #include <vector>
 #include <memory>
 #include "SoundLine.h"
+#include "BeatMarker.h"
 
 class Sequencer : public juce::Component {
 public:
@@ -15,6 +16,7 @@ public:
 
     std::vector<AudioFileData *> getSounds();
     void addRow();
+    void updateBeat(int updatedBeatValue);
 
 private:
     static const int NUM_SOUNDS = 6;
@@ -22,6 +24,7 @@ private:
     static const int LINE_VERTICAL_GAP = 20;
     static const int LINE_SIDE_MARGIN = 20;
 
+    BeatMarker beatMarker;
     std::vector<SoundLine *> soundList;
     int lastX = 0;
     int lastY = 0;

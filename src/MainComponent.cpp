@@ -5,7 +5,6 @@ MainComponent::MainComponent()
 {
     setSize (600, 600);
 
-
     // Set palette.
     lookAndFeel.setColour(ColorPalette::Background, juce::Colour::fromRGBA(100, 13, 107, 255));
     lookAndFeel.setColour(ColorPalette::Primary, juce::Colour::fromRGBA(181, 27, 117, 255));
@@ -56,7 +55,6 @@ MainComponent::MainComponent()
     }
 
     bpmSlider.onValueChange = std::bind(&MainComponent::onBpmSliderChange, this);
-    // bpmSlider.onValueChange = [this] {onBpmSliderChange(); };
 
     std::unique_ptr<juce::Drawable> playIcon = juce::Drawable::createFromImageFile(juce::File("/Users/tarcangul/projects/simple-sequencer/src/assets/play.png"));
     std::unique_ptr<juce::Drawable> pauseIcon = juce::Drawable::createFromImageFile(juce::File("/Users/tarcangul/projects/simple-sequencer/src/assets/pause.png"));
@@ -91,9 +89,17 @@ MainComponent::MainComponent()
     addAndMakeVisible(resetButton.get());
     addAndMakeVisible(sequencerViewport);
     
+    // Letting the sequencer subscribe when the beat updates.
+    soundEngine.get()->subscribe(SoundEngineEvent::BEAT_ADVANCE, [this](int updatedBeatValue) {
+        this->sequencer.updateBeat(updatedBeatValue);
+    });
 
     appSection.performLayout(backgroundRectangle.getBounds());
     buttonSection.performLayout(appSection.items.getFirst().currentBounds);
+}
+
+void MainComponent::handleBeatAdvance(int updatedBeatValue) {
+
 }
 
 void MainComponent::resized()

@@ -86,6 +86,11 @@ void SoundEngine::setBpm(double bpm)
     timer.setBpm(bpm);
 }
 
+void SoundEngine::subscribe(SoundEngineEvent event, Handler onEvent)
+{
+    subscriptonMap[event] = onEvent;
+}
+
 void SoundEngine::onBeatHit()
 {
     for(int i = 0 ; i < allSounds.size(); i++) {
@@ -109,4 +114,12 @@ void SoundEngine::onBeatHit()
 
     beatCounter++;
     beatCounter %= numBeats;
+    fireEvent(SoundEngineEvent::BEAT_ADVANCE, beatCounter);
+}
+
+void SoundEngine::fireEvent(SoundEngineEvent event, int data)
+{
+    if(subscriptonMap.count(event) > 0) {
+        subscriptonMap[event](data);
+    }
 }
