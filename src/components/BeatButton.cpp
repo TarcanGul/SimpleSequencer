@@ -47,3 +47,8 @@ void BeatButton::setPosition(int x, int y)
     xPos_ = x;
     yPos_ = y;
 }
+
+void BeatButton::mouseEnter(const juce::MouseEvent &event)
+{
+    setMouseCursor(juce::MouseCursor::PointingHandCursor);
+}

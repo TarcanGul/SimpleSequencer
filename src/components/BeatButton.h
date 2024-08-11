@@ -10,6 +10,8 @@ public:
                             bool shouldDrawButtonAsHighlighted,
                             bool shouldDrawButtonAsDown) override;
     void setPosition(int x, int y);
+    void mouseEnter(const juce::MouseEvent& event) override;
+
 private:
     juce::String buttonName_;
     int xPos_ = 0;
