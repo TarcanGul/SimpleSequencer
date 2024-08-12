@@ -15,7 +15,9 @@ SequenceTimer::~SequenceTimer()
 
 void SequenceTimer::hiResTimerCallback()
 {
-    timer_callback_();
+    if(timer_callback_ != nullptr) {
+        timer_callback_();
+    }
 }
 
 void SequenceTimer::start()

@@ -2,6 +2,16 @@
 
 BeatMarker::BeatMarker(int initNumOfBeats) : num_beats_(initNumOfBeats)
 {
+    container.alignContent = juce::FlexBox::AlignContent::center;
+    // gap aligned with the sound lines.
+    container.items.add(juce::FlexItem().withFlex(4.0).withMargin(1.0).withMinWidth(10.0));
+    for(int i = 0; i < num_beats_; ++i) {
+        juce::FlexItem flexItemWrapper;
+        flexItemWrapper = flexItemWrapper.withFlex(1.0).withMargin(1.0).withMinWidth(2.0);
+        container.items.add(flexItemWrapper);
+    }
+
+    container.performLayout(getLocalBounds());
 }
 
 BeatMarker::~BeatMarker()
@@ -33,15 +43,10 @@ void BeatMarker::updateMarkedBeat(int newBeat)
 void BeatMarker::resized() {
 
     rectangles.clear();
-    int currentWidth = getWidth();
-    int unit = currentWidth / 12;
-
-    int currentX = getX() + (4 * unit);
-    int currentY = getY() + 10;
+    container.performLayout(getLocalBounds());
 
     for(int i = 0; i < num_beats_; ++i) {
-        juce::Rectangle<float> border(currentX, currentY, 15, 5);
-        currentX += unit;
+        juce::Rectangle<float> border(container.items[i + 1].currentBounds.getX(),container.items[i + 1].currentBounds.getY() + MARGIN_TOP, 20, 5);
         rectangles.add(border);
     }
 }

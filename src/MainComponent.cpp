@@ -27,11 +27,6 @@ MainComponent::MainComponent()
     addRowButton.setColour(addRowButton.textColourOffId, lookAndFeel.findColour(ColorPalette::Light));
     addRowButton.setColour(addRowButton.textColourOnId, juce::Colours::white);
     addRowButton.addListener(this);
-
-    changeTimeSignatureButton.setButtonText("Set time signature");
-    changeTimeSignatureButton.setColour(changeTimeSignatureButton.buttonColourId, lookAndFeel.findColour(ColorPalette::Primary));
-    changeTimeSignatureButton.setColour(changeTimeSignatureButton.textColourOffId, lookAndFeel.findColour(ColorPalette::Light));
-    changeTimeSignatureButton.setColour(changeTimeSignatureButton.textColourOnId, juce::Colours::white);
     
     bpmSlider.setSliderStyle(juce::Slider::SliderStyle::IncDecButtons);
     bpmSlider.setIncDecButtonsMode(juce::Slider::IncDecButtonMode::incDecButtonsDraggable_Vertical);
@@ -74,8 +69,7 @@ MainComponent::MainComponent()
 
     buttonSection.alignContent = juce::FlexBox::AlignContent::center;
     buttonSection.items = { 
-        juce::FlexItem(addRowButton).withFlex(1.0).withMargin(juce::FlexItem::Margin(10)), 
-        juce::FlexItem(changeTimeSignatureButton).withFlex(1.0).withMargin(juce::FlexItem::Margin(10)), 
+        juce::FlexItem(addRowButton).withFlex(2.0).withMargin(juce::FlexItem::Margin(10)), 
         juce::FlexItem(bpmSlider).withFlex(1.0).withMargin(juce::FlexItem::Margin(10)),
         juce::FlexItem(*playButton).withFlex(0.5).withMargin(juce::FlexItem::Margin(5)),
         juce::FlexItem(*resetButton).withFlex(0.5).withMargin(juce::FlexItem::Margin(5))
@@ -84,7 +78,6 @@ MainComponent::MainComponent()
 
     addAndMakeVisible(backgroundRectangle, 0);
     addAndMakeVisible(addRowButton);
-    addAndMakeVisible(changeTimeSignatureButton);
     addAndMakeVisible(bpmSlider);
     addAndMakeVisible(playButton.get());
     addAndMakeVisible(resetButton.get());
@@ -144,6 +137,6 @@ void MainComponent::buttonClicked(juce::Button *button)
 
 void MainComponent::onBpmSliderChange()
 {
-    double updated_value = bpmSlider.getValue();
-    soundEngine->setBpm(updated_value);
+    double updatedValue = bpmSlider.getValue();
+    soundEngine->setBpm(updatedValue);
 }

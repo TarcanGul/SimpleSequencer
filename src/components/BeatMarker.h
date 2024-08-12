@@ -13,8 +13,10 @@ public:
     void paint(juce::Graphics& g) override;
     void updateMarkedBeat(int newBeat);
 private:
+    const int MARGIN_TOP = 20;
     int num_beats_;
     int marked_beat_ = -1;
+    juce::FlexBox container;
     std::vector<bool> beatBitmap;
     juce::RectangleList<float> rectangles;
 };

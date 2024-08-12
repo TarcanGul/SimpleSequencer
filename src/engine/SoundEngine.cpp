@@ -75,6 +75,7 @@ void SoundEngine::pauseAll()
             sound->transportSource->stop();
         }
         timer.stop();
+        mixerAudioSource_.removeAllInputs();
     }
 }
 
@@ -91,6 +92,7 @@ void SoundEngine::reset()
         timer.stop();
     }
     beatCounter = 0;
+    mixerAudioSource_.removeAllInputs();
     // It is a reset event, send -1 to subscribers
     fireEvent(SoundEngineEvent::BEAT_ADVANCE, -1);
 }

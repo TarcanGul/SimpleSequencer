@@ -41,7 +41,6 @@ private:
     juce::TextButton addRowButton;
     std::unique_ptr<juce::DrawableButton> playButton;
     std::unique_ptr<juce::DrawableButton> resetButton;
-    juce::TextButton changeTimeSignatureButton;
     juce::Slider bpmSlider;
 
     Sequencer sequencer;
