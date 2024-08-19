@@ -32,6 +32,11 @@ private:
     const int MIN_BPM = 80;
     const int MAX_BPM = 200;
 
+    const juce::File ASSETS_DIR = juce::File(__FILE__).getParentDirectory().getChildFile("assets");
+    const juce::File PLAY_ICON = ASSETS_DIR.getChildFile("play.png");
+    const juce::File PAUSE_ICON = ASSETS_DIR.getChildFile("pause.png");
+    const juce::File STOP_ICON = ASSETS_DIR.getChildFile("stop.png");
+
     juce::LookAndFeel_V4 lookAndFeel;
     juce::DrawableRectangle backgroundRectangle;
 

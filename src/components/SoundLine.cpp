@@ -78,7 +78,7 @@ void SoundLine::buttonClicked(juce::Button *button)
                 this->audioFileData->file = std::make_shared<juce::File>(selectedFile);
                 this->audioFileData->sourcesNeedUpdate = true;
                 this->hasFile = true;
-                labelButton.setButtonText(selectedFile.getFileName());
+                labelButton.setButtonText(selectedFile.getFileNameWithoutExtension());
             }
         });
         return;

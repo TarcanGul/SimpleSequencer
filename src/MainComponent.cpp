@@ -51,9 +51,9 @@ MainComponent::MainComponent()
 
     bpmSlider.onValueChange = std::bind(&MainComponent::onBpmSliderChange, this);
 
-    std::unique_ptr<juce::Drawable> playIcon = juce::Drawable::createFromImageFile(juce::File("/Users/tarcangul/projects/simple-sequencer/src/assets/play.png"));
-    std::unique_ptr<juce::Drawable> pauseIcon = juce::Drawable::createFromImageFile(juce::File("/Users/tarcangul/projects/simple-sequencer/src/assets/pause.png"));
-    std::unique_ptr<juce::Drawable> stopIcon = juce::Drawable::createFromImageFile(juce::File("/Users/tarcangul/projects/simple-sequencer/src/assets/stop.png"));
+    std::unique_ptr<juce::Drawable> playIcon = juce::Drawable::createFromImageFile(PLAY_ICON);
+    std::unique_ptr<juce::Drawable> pauseIcon = juce::Drawable::createFromImageFile(PAUSE_ICON);
+    std::unique_ptr<juce::Drawable> stopIcon = juce::Drawable::createFromImageFile(STOP_ICON);
 
     playButton = std::make_unique<juce::DrawableButton>("playButton", juce::DrawableButton::ImageOnButtonBackground);
     playButton->setToggleable(true);
