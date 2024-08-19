@@ -17,9 +17,13 @@ Features:
 
 Feel free to fork and operate under the MIT license.
 
-## Build
+## Build the Project
+
+### Prerequisites
+- Make sure that you have clone [JUCE](https://github.com/juce-framework/JUCE) in a directory you can specify.
 
 - Clone the repository.
-- Navigate to the `build/` folder.
-- Run `make`
+- Create a `build/` folder and navigate to it.
+- Run `cmake .. -DCMAKE_PREFIX_PATH=<DIRECTORY WHERE YOU CLONED JUCE>`
+- After build files are generated, run `make`
 - For MacOS, the executable will be in `simple-sequencer/build/SimpleSequencer_artefacts/Debug/"Simple Sequencer.app"/Contents/MacOS/"Simple Sequencer"`. Just run this as a command and voila!
