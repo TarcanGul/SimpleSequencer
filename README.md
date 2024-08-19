@@ -22,6 +22,7 @@ Feel free to fork and operate under the MIT license.
 ### Prerequisites
 - Make sure that you have clone [JUCE](https://github.com/juce-framework/JUCE) in a directory you can specify.
 
+### Steps
 - Clone the repository.
 - Create a `build/` folder and navigate to it.
 - Run `cmake .. -DCMAKE_PREFIX_PATH=<DIRECTORY WHERE YOU CLONED JUCE>`
