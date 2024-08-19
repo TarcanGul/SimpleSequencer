@@ -1,2 +1,0 @@
-# Hashes of file build rules.
-9af458b754f5a48b8fd1cd3f005eddfa SimpleSequencer_artefacts/JuceLibraryCode/SimpleSequencer/PkgInfo
