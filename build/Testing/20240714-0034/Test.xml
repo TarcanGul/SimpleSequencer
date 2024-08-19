@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="Darwin-c++"
+	BuildStamp="20240714-0034-Experimental"
+	Name="Tarcans-MacBook-Pro.local"
+	Generator="ctest-3.29.3"
+	CompilerName="/Library/Developer/CommandLineTools/usr/bin/c++"
+	CompilerVersion="14.0.3.14030022"
+	OSName="macOS"
+	Hostname="Tarcans-MacBook-Pro.local"
+	OSRelease="13.3.1"
+	OSVersion="22E261"
+	OSPlatform="arm64"
+	Is64Bits="1"
+	VendorString="IBM"
+	VendorID="IBM"
+	FamilyID="16777228"
+	ModelID="2"
+	ProcessorCacheSize="131072"
+	NumberOfLogicalCPU="12"
+	NumberOfPhysicalCPU="12"
+	TotalVirtualMemory="0"
+	TotalPhysicalMemory="16384"
+	LogicalProcessorsPerPhysical="12"
+	ProcessorClockFrequency="0"
+	>
+	<Testing>
+		<StartDateTime>Jul 14 12:21 EDT</StartDateTime>
+		<StartTestTime>1720974071</StartTestTime>
+		<TestList>
+			<Test>./SoundEngineTest</Test>
+		</TestList>
+		<Test Status="failed">
+			<Name>SoundEngineTest</Name>
+			<Path>.</Path>
+			<FullName>./SoundEngineTest</FullName>
+			<FullCommandLine>/Users/tarcangul/projects/simple-sequencer/build/SoundEngineTest</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="text/string" name="Exit Code">
+					<Value>Failed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Exit Value">
+					<Value>201</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.675056</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/Users/tarcangul/projects/simple-sequencer/build/SoundEngineTest</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value encoding="base64" compression="gzip">eJzFlU9vEzEQxc/dr9DLKFwAid38KUVxTlFpRauioDaFQw9o4p3duPHay9hOybfH3qCWIriAmvi0Wnnee/Pb8fri5uQU1u/yfj4YZlfBGGVqGIAn50GiozzPs9c/FxCzZQelcrjQaaNfEqD2xAY9gfMoVyI7eNHtE8NhdnBu1qhVCch1aMj4LJiVsfcGtJXolTWiL+Dw9mgyGkyOxk2FHvXWRoAy0Gs1bqZaz2OcnoCGGssbQCnJOVgrqzsNQA9YlhxfCuh/r56uflLapmiJG+VcLHGHt/3JaJw8s+LGEbvCI0s0ddBFy/aOpHeFU02r6Y2jb4GMJC4SloJMrQwV1zaY8rR7TvFy2bbiODUzmIyOk7DGxHBJctVaZbx42s0WcUTCm1+yZF15xyIBH0CFSgcmUBE7+ZiKygQmge8EGlsGTdD7LU0vexRNQpeEq1hpF11jD1IiOigTv1vs7qV7BbYCGWM7OLFM01Aqe2a5QZ9dpDGZugiqA/6QysBdkPR1Kz/r1N932pbzpRgPs38xn9X1Z8sL5faW4Eyj3Jv5VFXV3sy/4Hpv3h9UvbwiZ3VIZnPVEO82wHk87rt1/BT/YFVEvYdm50smLJ/Jc/i36VI+Xh10uk53wW5P1eNUf0SD9a5xz+4NlVNm3DyT79s/+157jjf1fxr/AAu90H0=</Value>
+				</Measurement>
+			</Results>
+		</Test>
+		<EndDateTime>Jul 14 12:21 EDT</EndDateTime>
+		<EndTestTime>1720974072</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>

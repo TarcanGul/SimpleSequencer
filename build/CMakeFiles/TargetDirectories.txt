@@ -1,0 +1,5 @@
+/Users/tarcangul/projects/simple-sequencer/build/CMakeFiles/SimpleSequencer.dir
+/Users/tarcangul/projects/simple-sequencer/build/CMakeFiles/SoundEngineTest.dir
+/Users/tarcangul/projects/simple-sequencer/build/CMakeFiles/test.dir
+/Users/tarcangul/projects/simple-sequencer/build/CMakeFiles/edit_cache.dir
+/Users/tarcangul/projects/simple-sequencer/build/CMakeFiles/rebuild_cache.dir

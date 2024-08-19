@@ -1,0 +1,22 @@
+Start testing: Jul 06 13:49 EDT
+----------------------------------------------------------
+1/1 Testing: test_sound_engine
+1/1 Test: test_sound_engine
+Command: "/Users/tarcangul/projects/simple-sequencer/build/test_sound_engine"
+Directory: /Users/tarcangul/projects/simple-sequencer/build
+"test_sound_engine" start time: Jul 06 13:49 EDT
+Output:
+----------------------------------------------------------
+Running 1 test case...
+
+[1;32;49m*** No errors detected
+[0;39;49m
+<end of output>
+Test time =   0.41 sec
+----------------------------------------------------------
+Test Passed.
+"test_sound_engine" end time: Jul 06 13:49 EDT
+"test_sound_engine" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Jul 06 13:49 EDT
